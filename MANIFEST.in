@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include bizmap_hotel *.css
+recursive-include bizmap_hotel *.csv
+recursive-include bizmap_hotel *.html
+recursive-include bizmap_hotel *.ico
+recursive-include bizmap_hotel *.js
+recursive-include bizmap_hotel *.json
+recursive-include bizmap_hotel *.md
+recursive-include bizmap_hotel *.png
+recursive-include bizmap_hotel *.py
+recursive-include bizmap_hotel *.svg
+recursive-include bizmap_hotel *.txt
+recursive-exclude bizmap_hotel *.pyc
