@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2022-07-18 18:34:00.214017",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "room",
+  "adult_count",
+  "child_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "room",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Room"
+  },
+  {
+   "fieldname": "adult_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Adult Count"
+  },
+  {
+   "fieldname": "child_count",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Child Count"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-18 18:34:00.214017",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Online Booking Item HMS",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

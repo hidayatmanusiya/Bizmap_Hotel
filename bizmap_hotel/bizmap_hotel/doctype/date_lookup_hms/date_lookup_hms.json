@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "creation": "2022-07-18 18:45:49.277610",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "weekday",
+  "weekday_name",
+  "month",
+  "month_name",
+  "year"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "weekday",
+   "fieldtype": "Int",
+   "label": "Weekday"
+  },
+  {
+   "fieldname": "weekday_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Weekday Name"
+  },
+  {
+   "fieldname": "month",
+   "fieldtype": "Int",
+   "label": "Month"
+  },
+  {
+   "fieldname": "month_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Month Name"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Int",
+   "label": "Year"
+  }
+ ],
+ "links": [],
+ "modified": "2022-07-18 18:45:49.277610",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Date Lookup HMS",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

@@ -1,0 +1,191 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2022-07-18 18:34:07.297569",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "room_type",
+  "package",
+  "room_rate",
+  "column_break_3",
+  "check_in",
+  "check_out",
+  "section_break_6",
+  "guest_details_section",
+  "guest_name",
+  "email",
+  "phone_no",
+  "customer",
+  "create_customer",
+  "column_break_8",
+  "address_line_1",
+  "address_line_2",
+  "city",
+  "pincode",
+  "section_break_13",
+  "items",
+  "terms_conditions_section",
+  "terms_and_conditions",
+  "terms",
+  "naming_series"
+ ],
+ "fields": [
+  {
+   "fetch_from": "package.room_type_cf",
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room Type",
+   "options": "Room Type HMS",
+   "reqd": 1
+  },
+  {
+   "fieldname": "package",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Package",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_rate",
+   "fieldtype": "Currency",
+   "label": "Room Rate"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_in",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Check In",
+   "reqd": 1
+  },
+  {
+   "fieldname": "check_out",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Check Out",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "guest_details_section",
+   "fieldtype": "Section Break",
+   "label": "Guest Details"
+  },
+  {
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "phone_no",
+   "fieldtype": "Data",
+   "label": "Phone No"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:!doc.customer",
+   "fieldname": "create_customer",
+   "fieldtype": "Button",
+   "label": "Create Customer"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1"
+  },
+  {
+   "fieldname": "address_line_2",
+   "fieldtype": "Data",
+   "label": "Address Line 2"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "pincode",
+   "fieldtype": "Data",
+   "label": "Pincode"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Online Booking Item HMS"
+  },
+  {
+   "fieldname": "terms_conditions_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "terms_and_conditions",
+   "fieldtype": "Link",
+   "label": "Terms and Conditions",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "terms_and_conditions.terms",
+   "fieldname": "terms",
+   "fieldtype": "HTML Editor",
+   "label": "Terms",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "ORB-.#"
+  }
+ ],
+ "links": [],
+ "modified": "2022-07-18 18:34:07.297569",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Online Booking HMS",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
