@@ -1,0 +1,53 @@
+frappe.ui.form.on('Sales Order', {
+    refresh:function(frm){
+   
+   frm.add_custom_button(__('Frondesk'), function(){
+        //frappe.set_route(["query-report", "Gross Profit"]);
+    })
+    
+    
+     },
+     no_of_nights_cf(frm){
+               frappe.call({
+        method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.check_out_date',
+        args: {
+        'doc':frm.doc
+             },
+         callback: function(r) {
+              frm.set_value("check_out_cf",r.message)
+            
+         }    
+                     
+         });
+
+     },
+     //room_package_cf(frm){
+     
+    //let value = frappe.db.get_value('Item Price',{'item_name' :frm.doc.room_package_cf}, 'price_list_rate',(r) =>{
+      //frm.set_value('room_rate_cf',r.price_list_rate)
+    
+    //})
+     
+     
+     //},
+     
+     room_package_cf(frm){
+           
+             frappe.call({
+        method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.insert_items',
+        args: {
+        'doc':frm.doc
+             },
+         callback: function(r) {
+              cur_frm.get_field("items").grid.grid_rows[0].remove();
+              var childTable = cur_frm.add_child("items")
+              childTable.item_code="Classic Room Only";
+              cur_frm.refresh_fields("invoice_schedule")
+              cur_frm.refresh();
+         }    
+                     
+         });
+     }
+     
+     
+  }) 

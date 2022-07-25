@@ -46,8 +46,7 @@
   "total_advance_paid",
   "balance",
   "amended_from",
-  "is_checklist_done",
-  "amended_from"
+  "is_checklist_done"
  ],
  "fields": [
   {
@@ -124,7 +123,6 @@
    "in_standard_filter": 1,
    "label": "Room Type",
    "options": "Room Type HMS",
-   "read_only": 1,
    "reqd": 1
   },
   {
@@ -323,7 +321,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-21 16:22:56.974609",
+ "modified": "2022-07-24 23:38:16.798994",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",
