@@ -39,18 +39,19 @@ def insert_items(doc):
 
 @frappe.whitelist()
 def doc_mapped_to_room_folia(source_name, target_doc=None):
-    target_doc = get_mapped_doc('Sales Order', source_name,
+    #print(doc.name)
+    target_doc = get_mapped_doc("Sales Order", source_name,
        {
-        'Sales Order': {
-            'doctype': 'Room Folio HMS',
-            'field_map': {
-                'reservation': 'name',
-                'customer':'customer',
-                'reservation_notes':'reservation_notes_cf',
-                'room_type':'room_type_cf',
-                'room_no':'room_no_cf',
-                'room_package':'room_package_cf',
-                'room_rate':'room_rate_cf'
+        "Sales Order": {
+            "doctype": "Room Folio HMS",
+            "field_map": {
+                "name": "reservation",
+                "customer":"customer",
+                "reservation_notes_cf":"reservation_notes",
+                "room_type_cf":"room_type",
+                "room_no_cf":"room_no",
+                "room_package_cf":"room_package",
+                "room_rate_cf":"room_rate"
               
             },
         }

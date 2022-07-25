@@ -3,14 +3,28 @@ frappe.ui.form.on('Sales Order', {
    
    frm.add_custom_button(__('Frondesk'), function(){
         //frappe.set_route(["query-report", "Gross Profit"]);
-    }),
+    })
+     if(frm.doc.docstatus==1){
        frm.add_custom_button(__('Room Folio'), function() {
-	    frappe.model.open_mapped_doc({
-	        method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.doc_mapped_to_room_folia',
+           //frappe.set_route(['doctype', 'Room Folio HMS',], { reservation:frm.doc.name })
+            //frappe.route_options = {"reservation":frm.doc.name}
+            var check_room_folio=frappe.db.get_value("Room Folio HMS",{'reservation':frm.doc.name},'name',(r) => {
+             if(r.name!=null){
+             
+             frappe.set_route("Form", "Room Folio HMS",r.name)
+             }
+             else{
+             
+	   frappe.model.open_mapped_doc({
+	      method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.doc_mapped_to_room_folia',
 	        frm:cur_frm
 	    });
+             
+             }
+            })
+            
 	});
-    
+    }
     
      },
      no_of_nights_cf(frm){

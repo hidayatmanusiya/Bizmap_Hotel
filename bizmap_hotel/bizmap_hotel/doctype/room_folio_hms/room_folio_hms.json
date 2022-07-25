@@ -35,7 +35,8 @@
   "car_make_model",
   "vi_s_cb1",
   "registration_plate_no",
-  "advance_payment_section",
+  "booked_sales",
+  "payment_details_section",
   "room_folio_advance",
   "charge_purchase_section",
   "sales_invoice_reference",
@@ -238,11 +239,6 @@
    "label": "Registration Plate No"
   },
   {
-   "fieldname": "advance_payment_section",
-   "fieldtype": "Section Break",
-   "label": "Unallocated Advance"
-  },
-  {
    "fieldname": "room_folio_advance",
    "fieldtype": "HTML",
    "label": "room_folio_advance"
@@ -317,11 +313,21 @@
    "options": "Room Folio HMS",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "booked_sales",
+   "fieldtype": "Section Break",
+   "label": "Booked Sales"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-24 23:38:16.798994",
+ "modified": "2022-07-25 18:39:19.678175",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",
