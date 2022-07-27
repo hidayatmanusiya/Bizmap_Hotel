@@ -35,7 +35,8 @@ doctype_js = {
 
    #"doctype" : "public/js/doctype.js",
    "Sales Order":"public/js/sales_order.js",
-   "Room Folio HMS":"public/js/room_folio_hms.js"
+   "Room Folio HMS":"public/js/room_folio_hms.js",
+   "Sales Invoice":"public/js/sales_invoice.js"
 
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}

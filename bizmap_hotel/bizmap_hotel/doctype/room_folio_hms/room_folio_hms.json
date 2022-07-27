@@ -36,7 +36,9 @@
   "vi_s_cb1",
   "registration_plate_no",
   "booked_sales",
+  "sales_book_item",
   "payment_details_section",
+  "collected_payment",
   "room_folio_advance",
   "charge_purchase_section",
   "sales_invoice_reference",
@@ -323,11 +325,25 @@
    "fieldname": "payment_details_section",
    "fieldtype": "Section Break",
    "label": "Payment Details"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "sales_book_item",
+   "fieldtype": "Table",
+   "label": "Sales Book Item",
+   "options": "Sales Book Item"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "collected_payment",
+   "fieldtype": "Table",
+   "label": "Collected Payment",
+   "options": "Collected  Payment"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-25 18:39:19.678175",
+ "modified": "2022-07-27 12:06:49.460816",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",
