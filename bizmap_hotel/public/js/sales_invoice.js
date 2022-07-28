@@ -37,10 +37,10 @@ frappe.ui.form.on('Sales Invoice', {
 		           childTable.item_name=r.message[i][j][3]
 		           childTable.description=r.message[i][j][2]
 		           childTable.uom=r.message[i][j][1]
-		           childTable.qty =r.message[i][j][4]
+		           childTable.qty =r.message[i][j][8]
 		           childTable.conversion_factor=r.message[i][j][5]
 		           childTable.item_tax_template=r.message[i][j][6]
-		           childTable.stock_qty=2
+		           //childTable.stock_qty=2
                     
                  }
                 }

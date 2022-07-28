@@ -8,6 +8,7 @@ frappe.ui.form.on('Sales Order', {
        frm.add_custom_button(__('Room Folio'), function() {
            //frappe.set_route(['doctype', 'Room Folio HMS',], { reservation:frm.doc.name })
             //frappe.route_options = {"reservation":frm.doc.name}
+            if(frm.doc.number_of_room <=1){
             var check_room_folio=frappe.db.get_value("Room Folio HMS",{'reservation':frm.doc.name},'name',(r) => {
              if(r.name!=null){
              
@@ -22,7 +23,22 @@ frappe.ui.form.on('Sales Order', {
              
              }
             })
-            
+          }
+          if(frm.doc.number_of_room >1){
+           
+             frappe.call({
+              method :'bizmap_hotel.bizmap_hotel.doctype.sales_order.doc_mapped_to_for_multiple_room_folio',
+              args: {
+               'doc':frm.doc
+             },
+             callback: function(r) {
+             
+             }
+             })
+           frappe.route_options = {"reservation":frm.doc.name}
+           frappe.set_route("Form", "Room Folio HMS")
+           
+          }
 	});
     }
     
@@ -50,8 +66,13 @@ frappe.ui.form.on('Sales Order', {
      
      },
      
-     room_rate_cf(frm){
-           
+     number_of_room(frm){
+          if(frm.doc.no_of_nights_cf==null){
+              frm.set_value('number_of_room',"")
+             frappe.throw("Enter Number of Night First")
+             
+          }
+          else{
              frappe.call({
         method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.insert_items',
         args: {
@@ -59,7 +80,7 @@ frappe.ui.form.on('Sales Order', {
              },
          callback: function(r) {
                console.log(r)
-               
+              
               cur_frm.get_field("items").grid.grid_rows[0].remove();
               cur_frm.refresh();
               var childTable = cur_frm.add_child("items")
@@ -73,9 +94,11 @@ frappe.ui.form.on('Sales Order', {
               childTable.uom=r.message[4][1]
               //cur_frm.refresh_fields("invoice_schedule")
               
+              
          }    
                      
          });
+       }  
      }
      
      

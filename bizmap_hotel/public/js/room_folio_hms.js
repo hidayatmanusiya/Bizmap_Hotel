@@ -29,7 +29,22 @@ frappe.ui.form.on('Room Folio HMS', {
   }	
 	
 		
+    },
+    check_out(frm){
+       
+           frappe.call({
+    method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.checkout_minus_checkin_days_diffrence',
+    args: {
+        'doc':frm.doc
+    },
+	async: false,
+    callback: function(r) {
+        
+          frm.set_value("quantity",r.message)
     }
+});
+    
+ }
 })
 
 frappe.ui.form.on('Sales Book Item',"sales_order",function(frm,cdt,cdn){
