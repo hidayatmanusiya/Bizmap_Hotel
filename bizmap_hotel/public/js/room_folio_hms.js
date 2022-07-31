@@ -64,3 +64,13 @@ frappe.ui.form.on('Sales Book Item',"sales_order",function(frm,cdt,cdn){
 });
     
 })
+
+
+frappe.ui.form.on('Room Folio HMS', "refresh", function(frm) {
+    frm.add_custom_button(__("Sign In Sheet HMS"), function() {
+        let lcv = frappe.model.get_new_doc('Sign In Sheet HMS');
+        lcv.room_folio = cur_frm.doc.name;
+        frappe.set_route("Form", lcv.doctype, lcv.name);
+
+    });
+});

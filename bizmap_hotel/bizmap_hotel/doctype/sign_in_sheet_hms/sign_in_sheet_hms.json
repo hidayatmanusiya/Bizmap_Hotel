@@ -1,42 +1,153 @@
 {
  "actions": [],
+ "autoname": "SIS.####",
  "creation": "2022-07-18 18:13:36.518200",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "content",
-  "signature",
-  "folio",
-  "letter_head"
+  "room_folio_section",
+  "room_folio",
+  "guest_details_section",
+  "guest",
+  "address_type",
+  "column_break_5",
+  "address",
+  "address_line",
+  "room_details_section",
+  "room_type",
+  "room_no",
+  "room_package",
+  "column_break_7",
+  "room_rate",
+  "check_in",
+  "check_out",
+  "status",
+  "document_section",
+  "id_proof",
+  "column_break_16",
+  "signature"
  ],
  "fields": [
   {
-   "fieldname": "content",
-   "fieldtype": "HTML Editor",
-   "label": "Content"
+   "fieldname": "guest_details_section",
+   "fieldtype": "Section Break",
+   "label": "Guest Details"
   },
   {
-   "description": "Signature",
+   "fetch_from": "romm_folio.guest.frist_name",
+   "fieldname": "guest",
+   "fieldtype": "Link",
+   "label": "Guest",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "room_details_section",
+   "fieldtype": "Section Break",
+   "label": "Room Details"
+  },
+  {
+   "fetch_from": "room_folio.room_type",
+   "fieldname": "room_type",
+   "fieldtype": "Data",
+   "label": "Room Type"
+  },
+  {
+   "fetch_from": "room_folio.room_no",
+   "fieldname": "room_no",
+   "fieldtype": "Data",
+   "label": "Room No"
+  },
+  {
+   "fetch_from": "room_folio.room_package",
+   "fieldname": "room_package",
+   "fieldtype": "Data",
+   "label": "Room Package"
+  },
+  {
+   "fetch_from": "room_folio.room_rate",
+   "fieldname": "room_rate",
+   "fieldtype": "Currency",
+   "label": "Room Rate"
+  },
+  {
+   "fetch_from": "room_folio.check_in",
+   "fieldname": "check_in",
+   "fieldtype": "Data",
+   "label": "Check In"
+  },
+  {
+   "fetch_from": "room_folio.check_out",
+   "fieldname": "check_out",
+   "fieldtype": "Data",
+   "label": "Check Out"
+  },
+  {
+   "fetch_from": "room_folio.status",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "room_folio_section",
+   "fieldtype": "Section Break",
+   "label": "Room Folio "
+  },
+  {
+   "fieldname": "room_folio",
+   "fieldtype": "Link",
+   "label": "Room Folio",
+   "options": "Room Folio HMS"
+  },
+  {
+   "fieldname": "document_section",
+   "fieldtype": "Section Break",
+   "label": "Document"
+  },
+  {
+   "fieldname": "id_proof",
+   "fieldtype": "Attach",
+   "label": "Id proof"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
    "fieldname": "signature",
    "fieldtype": "Signature",
    "label": "Signature"
   },
   {
-   "fieldname": "folio",
-   "fieldtype": "Data",
-   "label": "Folio",
-   "read_only": 1
+   "fetch_from": "guest.address",
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
   },
   {
-   "fieldname": "letter_head",
-   "fieldtype": "Link",
-   "label": "Letter Head",
-   "options": "Letter Head"
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "address.address_type",
+   "fieldname": "address_type",
+   "fieldtype": "Data",
+   "label": "Address Type"
+  },
+  {
+   "fetch_from": "address.address_line1",
+   "fieldname": "address_line",
+   "fieldtype": "Data",
+   "label": "Address Line "
   }
  ],
  "links": [],
- "modified": "2022-07-18 18:13:36.518200",
+ "modified": "2022-07-30 20:47:03.222075",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
