@@ -15,7 +15,7 @@ frappe.ui.form.on('Sales Order', {
              frappe.set_route("Form", "Room Folio HMS",r.name)
              }
              else{
-             
+            
 	   frappe.model.open_mapped_doc({
 	      method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.doc_mapped_to_room_folia',
 	        frm:cur_frm

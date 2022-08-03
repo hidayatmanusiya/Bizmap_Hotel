@@ -1,0 +1,172 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-07-30 17:24:51.092642",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "room_type",
+  "column_break_2",
+  "room_no",
+  "before_checkout_section",
+  "bf_room1",
+  "bf_room2",
+  "bf_bed",
+  "bf_cupbord",
+  "column_break_9",
+  "bf_washroom1",
+  "bf_washroom2",
+  "bf_other1",
+  "bf_other2",
+  "after_checkout_section",
+  "af_room1",
+  "af_room2",
+  "af_bed",
+  "af_cupbord",
+  "column_break_19",
+  "af_washroom1",
+  "af_washroom2",
+  "af_other1",
+  "af_other2"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "label": "Room Type",
+   "options": "Room Type HMS"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "room_no",
+   "fieldtype": "Link",
+   "label": "Room No",
+   "options": "Room HMS"
+  },
+  {
+   "fieldname": "before_checkout_section",
+   "fieldtype": "Section Break",
+   "label": "BEFORE CHECKOUT"
+  },
+  {
+   "fieldname": "bf_room1",
+   "fieldtype": "Attach",
+   "label": "Room1"
+  },
+  {
+   "fieldname": "bf_room2",
+   "fieldtype": "Attach",
+   "label": "Room2"
+  },
+  {
+   "fieldname": "bf_bed",
+   "fieldtype": "Attach",
+   "label": "Bed"
+  },
+  {
+   "fieldname": "bf_washroom1",
+   "fieldtype": "Attach",
+   "label": "Washroom1"
+  },
+  {
+   "fieldname": "bf_washroom2",
+   "fieldtype": "Attach",
+   "label": "Washroom2"
+  },
+  {
+   "fieldname": "bf_other1",
+   "fieldtype": "Attach",
+   "label": "Other1"
+  },
+  {
+   "fieldname": "bf_other2",
+   "fieldtype": "Attach",
+   "label": "Other2"
+  },
+  {
+   "fieldname": "bf_cupbord",
+   "fieldtype": "Attach",
+   "label": "Cupboard"
+  },
+  {
+   "fieldname": "after_checkout_section",
+   "fieldtype": "Section Break",
+   "label": "AFTER CHECKOUT"
+  },
+  {
+   "fieldname": "af_room1",
+   "fieldtype": "Attach",
+   "label": "Room1"
+  },
+  {
+   "fieldname": "af_room2",
+   "fieldtype": "Attach",
+   "label": "Room2"
+  },
+  {
+   "fieldname": "af_bed",
+   "fieldtype": "Attach",
+   "label": "Bed"
+  },
+  {
+   "fieldname": "af_cupbord",
+   "fieldtype": "Attach",
+   "label": "Cupboard"
+  },
+  {
+   "fieldname": "af_washroom1",
+   "fieldtype": "Attach",
+   "label": "Washroom1"
+  },
+  {
+   "fieldname": "af_washroom2",
+   "fieldtype": "Attach",
+   "label": "Washroom2"
+  },
+  {
+   "fieldname": "af_other1",
+   "fieldtype": "Attach",
+   "label": "Other1"
+  },
+  {
+   "fieldname": "af_other2",
+   "fieldtype": "Attach",
+   "label": "Other2"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-07-30 17:36:12.509695",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Room Cleaning",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

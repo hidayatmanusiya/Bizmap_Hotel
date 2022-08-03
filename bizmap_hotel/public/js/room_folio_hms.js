@@ -6,7 +6,25 @@ frappe.ui.form.on('Room Folio HMS', {
     })
     if(frm.doc.docstatus==1){
          cur_frm.add_custom_button(__('Make Pyment'), function(){
-         
+              let payment = frappe.model.get_new_doc('Payment Entry')
+              payment.naming_series='ACC-PAY-.YYYY.-'
+              payment.payment_type='Receive'
+              payment.party_type='Customer'
+              payment.posting_date='2022-08-02'
+              payment.room_folio_reference=frm.doc.reservation
+             // payment.company=frm.doc.company
+              frappe.db.get_list('Company', {
+            fields: ['default_bank_account'],
+            filters: {
+                'name': frm.doc.company
+            }
+        }).then(function(Default_Bank) {
+            payment.paid_to=Default_Bank[0].default_bank_account
+            //frm.set_value("paid_to", );
+        });
+              frappe.set_route("Form", payment.doctype, payment.name);
+            
+              
     }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
     
     frm.add_custom_button(__('Make Sign In sheet'), function(){
@@ -18,11 +36,17 @@ frappe.ui.form.on('Room Folio HMS', {
     }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
     
         frm.add_custom_button(__('Sales Invoice'), function(){
-    
+        var sales_invoice =frappe.db.get_value("Sales Invoice",{'room_folio':frm.doc.name},'room_folio',(r) => {
+        if(frm.doc.name!=r.room_folio){
        frappe.model.open_mapped_doc({
 	      method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_folio_sales_invoice',
 	        frm:cur_frm
-	    });     
+	    });    
+	  }
+	   else{
+	       frappe.throw(__("Sales Invoice for Room Folio '{0}' is alrady existing  ",[frm.doc.name]))
+	   } 
+	  })   
     }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
     
 

@@ -46,6 +46,7 @@ def room_folio_sales_invoice(source_name, target_doc=None):
             "field_map": {
                 "name": "room_folio_ref",
                 "customer":"customer"
+                 #"name":"room_folio"
                 
               
             },
@@ -64,7 +65,7 @@ def sales_order_item_transfer_to_sales_invoice(room_folio_ref):
       #qty=frappe.get_doc('Sales Invoice',room_folio_ref)
       
        for i in sales_order_ref:
-           sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.total,c.quantity from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
+           sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
            sales_order_child_itm.append(sales_order_itm)
     return sales_order_child_itm
     
@@ -84,5 +85,15 @@ def checkout_minus_checkin_days_diffrence(doc):
         return (checkout_formate-checkin_formate).days
     
         
+    
+    
+@frappe.whitelist()    
+def payment_entry(doc):
+    doc=json.loads(doc)
+    get_value_frm_sale_order =frappe.db.sql(f""" select name,customer,guest_cf,total from `tabSales Order` where name='{doc.get('room_folio_reference')}' """,as_dict=0)
+    print(get_value_frm_sale_order)
+    return get_value_frm_sale_order
+    
+    
     
     
