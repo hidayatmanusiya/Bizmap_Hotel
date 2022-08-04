@@ -180,6 +180,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "sign_in_sheet",
    "fieldtype": "Link",
    "label": "Sign In Sheet",
@@ -351,7 +352,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-07-28 21:16:02.195307",
+ "modified": "2022-08-04 14:01:19.930686",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",

@@ -26,7 +26,8 @@
   "document_section",
   "id_proof",
   "column_break_16",
-  "signature"
+  "signature",
+  "amended_from"
  ],
  "fields": [
   {
@@ -100,8 +101,10 @@
   {
    "fieldname": "room_folio",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Room Folio",
-   "options": "Room Folio HMS"
+   "options": "Room Folio HMS",
+   "reqd": 1
   },
   {
    "fieldname": "document_section",
@@ -144,10 +147,20 @@
    "fieldname": "address_line",
    "fieldtype": "Data",
    "label": "Address Line "
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sign In Sheet HMS",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-07-30 20:47:03.222075",
+ "modified": "2022-08-04 15:18:44.086525",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
