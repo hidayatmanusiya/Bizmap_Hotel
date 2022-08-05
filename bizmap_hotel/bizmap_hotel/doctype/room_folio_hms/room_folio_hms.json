@@ -310,15 +310,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Room Folio HMS",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
    "fieldname": "booked_sales",
    "fieldtype": "Section Break",
    "label": "Booked Sales"
