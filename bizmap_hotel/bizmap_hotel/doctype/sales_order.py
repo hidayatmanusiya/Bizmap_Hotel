@@ -51,6 +51,8 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
                 "room_type_cf":"room_type",
                 "room_no_cf":"room_no",
                 "room_package_cf":"room_package",
+                "check_out_cf":"check_out",
+                "no_of_nights_cf":"quantity",
                 "room_rate_cf":"room_rate"
               
             },

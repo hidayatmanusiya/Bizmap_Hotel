@@ -8,6 +8,7 @@ import json
 from datetime import datetime ,timedelta,date
 from frappe.utils import getdate
 import frappe.utils
+from frappe.utils import now
 class RoomFolioHMS(Document):
 	pass
 	
@@ -95,5 +96,22 @@ def payment_entry(doc):
     return get_value_frm_sale_order
     
     
+@frappe.whitelist()
+def check_in_button(doc):
+    doc =json.loads(doc)
+    if doc.get('name'):
+       frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked In"})
+      
     
+
+
+@frappe.whitelist()
+def check_out_button(doc):
+    doc =json.loads(doc)
+    if doc.get('name'):
+       frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked Out","check_out":now()})
+
+
+
+
     
