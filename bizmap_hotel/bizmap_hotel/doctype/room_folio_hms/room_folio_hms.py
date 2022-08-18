@@ -66,7 +66,7 @@ def sales_order_item_transfer_to_sales_invoice(room_folio_ref):
       #qty=frappe.get_doc('Sales Invoice',room_folio_ref)
       
        for i in sales_order_ref:
-           sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
+           sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity,m.name from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
            sales_order_child_itm.append(sales_order_itm)
     return sales_order_child_itm
     

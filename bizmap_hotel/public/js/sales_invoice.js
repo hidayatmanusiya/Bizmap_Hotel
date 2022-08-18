@@ -52,6 +52,7 @@ frappe.ui.form.on('Sales Invoice', {
 		           childTable.description=r.message[i][j][2]
 		           childTable.uom=r.message[i][j][1]
 		           childTable.qty =r.message[i][j][8]
+		           childTable.sales_order=r.message[i][j][9]
 		           //childTable.rate=r.message[i][j][7]
 		           //childTable.amount= r.message[i][j][7] * r.message[i][j][8]
 		           //childTable.base_rate=r.message[i][j][7]

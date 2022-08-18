@@ -1,0 +1,27 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2022-08-09 14:05:24.997785",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "letter-head",
+ "modified": "2022-08-09 14:06:55.979050",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Room Occupancy and Revenue HMS",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Room Folio HMS",
+ "report_name": "Room Occupancy and Revenue HMS",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}
