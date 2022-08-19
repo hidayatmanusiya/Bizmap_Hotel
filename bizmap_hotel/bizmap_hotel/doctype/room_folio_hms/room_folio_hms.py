@@ -112,6 +112,8 @@ def check_out_button(doc):
        frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked Out","check_out":now()})
 
 
-
-
+@frappe.whitelist()
+def get_sales_order():
+    sales_order_list =[s.get('sales_order') for s in frappe.db.get_list("Sales Invoice Item", {'docstatus':1}, 'sales_order')]
+    return sales_order_list if len(sales_order_list)>0 else 0
     
