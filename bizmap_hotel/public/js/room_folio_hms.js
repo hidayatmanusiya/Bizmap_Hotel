@@ -1,11 +1,9 @@
 frappe.ui.form.on('Room Folio HMS', {
 	refresh:function(frm) {
-	        
-		frm.add_custom_button(__('Frondesk'), function(){
+	frm.add_custom_button(__('Frondesk'), function(){
         //frappe.set_route(["query-report", "Gross Profit"]);
         
     })
-    
     if(frm.doc.docstatus==1){
          cur_frm.add_custom_button(__('Make Pyment'), function(){
               let payment = frappe.model.get_new_doc('Payment Entry')
@@ -103,6 +101,7 @@ frappe.ui.form.on('Room Folio HMS', {
  
  }
  
+ 
 
   
 })
@@ -122,6 +121,8 @@ frappe.ui.form.on('Sales Book Item',"sales_order",function(frm,cdt,cdn){
           frappe.model.set_value(cdt,cdn,'description',r.message[0].description)
     }
 });
+
+ 
     
 })
 
@@ -132,3 +133,6 @@ frappe.ui.form.on('Sales Book Item',"sales_order",function(frm,cdt,cdn){
 
    // });
 //});
+
+
+

@@ -81,5 +81,54 @@ def doc_mapped_to_for_multiple_room_folio(doc):
         )
     
     
-    
 
+
+def before_save(doc,method):
+   
+    #check_room_avablity
+    url ="https://live.ipms247.com/pmsinterface/pms_connectivity.php"
+    head={"Accept":"application/json","Content-Type":"application/json"}
+    occupied_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type)as m from `tabRoom Folio HMS` where check_out BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type='{doc.room_type_cf}'  And status="Checked Out" """, as_dict=1)]
+    print("occupied_room",occupied_room)
+    total_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type) as m from `tabRoom HMS` where room_type="{doc.room_type_cf}"  """, as_dict=1)]
+    print("total_room",total_room)
+    avalible_room= total_room[0]- occupied_room[0]
+    print("avalible_room",avalible_room)
+    occupied_booking_room_from_so=[i.m for i in frappe.db.sql(f""" select SUM(number_of_room) as m from `tabSales Order` where check_out_cf BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type_cf="{doc.room_type_cf}" And status!="Cancelled" """, as_dict=1)]
+    print("occupied_booking_room_from_so",occupied_booking_room_from_so)
+    if avalible_room>0:
+       avalible_for_booking= avalible_room-occupied_booking_room_from_so[0]
+       print("avalible_for_booking",avalible_for_booking)
+       
+       data= """ 
+            {    "RES_Request": {
+        "Request_Type": "UpdateAvailability",
+        "Authentication": {
+            "HotelCode": "8",
+            "AuthCode": ""
+        },                 
+        "RoomType": [
+            {
+                "RoomTypeID": "112400000000000002",
+                "FromDate": "2019-06-24",
+                "ToDate": "2019-06-30",
+                "Availability": "9"
+            },
+            {
+                "RoomTypeID": "112400000000000002",
+                "FromDate": "2019-06-14",
+                "ToDate": "2019-06-20",
+                "Availability": "9"
+            }
+        ]
+    }
+}
+       
+        """
+
+
+    
+       
+
+ 
+ 

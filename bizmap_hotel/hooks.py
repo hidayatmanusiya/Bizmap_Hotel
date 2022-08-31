@@ -105,13 +105,14 @@ doctype_js = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
+doc_events = {
+ 	"Sales Order": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+# 		"on_trash": "method",
+               "before_save":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_save"
+	}
+ }
 
 # Scheduled Tasks
 # ---------------
