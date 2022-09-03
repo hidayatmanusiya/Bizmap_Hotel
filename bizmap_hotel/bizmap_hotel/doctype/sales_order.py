@@ -44,7 +44,7 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
        {
         "Sales Order": {
             "doctype": "Room Folio HMS",
-            "field_map": {
+            "field_map": {  
                 "name": "reservation",
                 "customer":"customer",
                 "reservation_notes_cf":"reservation_notes",
@@ -53,7 +53,9 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
                 "room_package_cf":"room_package",
                 "check_out_cf":"check_out",
                 "no_of_nights_cf":"quantity",
-                "room_rate_cf":"room_rate"
+                "room_rate_cf":"room_rate",
+                "contact_mobile":"customer_mobile",
+                "contact_email": "customer_email"
               
             },
         }
@@ -71,7 +73,11 @@ def doc_mapped_to_for_multiple_room_folio(doc):
         New_room_folio.reservation_notes= doc.get('reservation_notes_cf')
         New_room_folio.room_type = doc.get('room_type_cf')
         New_room_folio.room_package = doc.get('room_package_cf')
-        New_room_folio.room_rate = doc.get('room_rate')
+        New_room_folio.room_rate = doc.get('room_rate_cf')
+        if doc.get("weekend_rate_cf"):
+           New_room_folio.room_rate=doc.get("weekend_rate_cf")
+           
+           
         New_room_folio.insert(
            ignore_permissions=True,
            ignore_links=True,

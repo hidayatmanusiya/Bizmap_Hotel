@@ -20,6 +20,7 @@ frappe.ui.form.on('Sales Order', {
 	          method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.doc_mapped_to_room_folia',
 	          frm:cur_frm
 	          });
+	   
              
              }
             })
@@ -95,11 +96,51 @@ frappe.ui.form.on('Sales Order', {
               //cur_frm.refresh_fields("invoice_schedule")
               
               
+              
+         }    
+                     
+         });
+       }  
+     },
+     weekend_rate_cf(frm){
+      if(frm.doc.weekend_rate_cf!=null){
+          
+          
+          if(frm.doc.no_of_nights_cf==null){
+              frm.set_value('number_of_room',"")
+             frappe.throw("Enter Number of Night First")
+             
+          }
+          else{
+             frappe.call({
+        method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.insert_items',
+        args: {
+        'doc':frm.doc
+             },
+         callback: function(r) {
+               console.log(r)
+              
+              cur_frm.get_field("items").grid.grid_rows[0].remove();
+              cur_frm.refresh();
+              var childTable = cur_frm.add_child("items")
+              childTable.item_code=r.message[0];
+              childTable.qty=r.message[1];
+              childTable.reservation_date_from=r.message[2]
+              childTable.reservation_date_to=r.message[3]
+              childTable.item_name=r.message[0]
+              childTable.rate=frm.doc.weekend_rate_cf
+              childTable.description=r.message[4][0]
+              childTable.uom=r.message[4][1]
+              //cur_frm.refresh_fields("invoice_schedule")
+              frm.set_value("room_rate_cf",frm.doc.weekend_rate_cf)
+              frm.set_df_property("room_rate_cf","hidden",1)
+              
+              
          }    
                      
          });
        }  
      }
-     
+    } 
      
   }) 
