@@ -3,6 +3,7 @@
 
 frappe.ui.form.on('Room Folio HMS', {
 	refresh: function(frm) {
+	      if(frm.doc.docstatus==1){
 		frm.add_custom_button(__("Sales Order"), function() {
 			var so_list = [];
 			frappe.call({
@@ -74,5 +75,6 @@ frappe.ui.form.on('Room Folio HMS', {
         });
 
 	}
+      }	
 });
 

@@ -44,7 +44,7 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
        {
         "Sales Order": {
             "doctype": "Room Folio HMS",
-            "field_map": {
+            "field_map": {  
                 "name": "reservation",
                 "customer":"customer",
                 "reservation_notes_cf":"reservation_notes",
@@ -53,7 +53,9 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
                 "room_package_cf":"room_package",
                 "check_out_cf":"check_out",
                 "no_of_nights_cf":"quantity",
-                "room_rate_cf":"room_rate"
+                "room_rate_cf":"room_rate",
+                "contact_mobile":"customer_mobile",
+                "contact_email": "customer_email"
               
             },
         }
@@ -71,7 +73,11 @@ def doc_mapped_to_for_multiple_room_folio(doc):
         New_room_folio.reservation_notes= doc.get('reservation_notes_cf')
         New_room_folio.room_type = doc.get('room_type_cf')
         New_room_folio.room_package = doc.get('room_package_cf')
-        New_room_folio.room_rate = doc.get('room_rate')
+        New_room_folio.room_rate = doc.get('room_rate_cf')
+        if doc.get("weekend_rate_cf"):
+           New_room_folio.room_rate=doc.get("weekend_rate_cf")
+           
+           
         New_room_folio.insert(
            ignore_permissions=True,
            ignore_links=True,
@@ -94,38 +100,12 @@ def before_save(doc,method):
     print("total_room",total_room)
     avalible_room= total_room[0]- occupied_room[0]
     print("avalible_room",avalible_room)
-    occupied_booking_room_from_so=[i.m for i in frappe.db.sql(f""" select SUM(number_of_room) as m from `tabSales Order` where check_out_cf BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type_cf="{doc.room_type_cf}" And status!="Cancelled" """, as_dict=1)]
+    occupied_booking_room_from_so=[0 if i.m is None else i.m for i in frappe.db.sql(f""" select SUM(number_of_room) as m from `tabSales Order` where check_out_cf BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type_cf="{doc.room_type_cf}" And status!="Cancelled" """, as_dict=1)]
     print("occupied_booking_room_from_so",occupied_booking_room_from_so)
     if avalible_room>0:
        avalible_for_booking= avalible_room-occupied_booking_room_from_so[0]
        print("avalible_for_booking",avalible_for_booking)
        
-       data= """ 
-            {    "RES_Request": {
-        "Request_Type": "UpdateAvailability",
-        "Authentication": {
-            "HotelCode": "8",
-            "AuthCode": ""
-        },                 
-        "RoomType": [
-            {
-                "RoomTypeID": "112400000000000002",
-                "FromDate": "2019-06-24",
-                "ToDate": "2019-06-30",
-                "Availability": "9"
-            },
-            {
-                "RoomTypeID": "112400000000000002",
-                "FromDate": "2019-06-14",
-                "ToDate": "2019-06-20",
-                "Availability": "9"
-            }
-        ]
-    }
-}
-       
-        """
-
 
     
        

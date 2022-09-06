@@ -96,20 +96,15 @@ def payment_entry(doc):
     return get_value_frm_sale_order
     
     
-@frappe.whitelist()
-def check_in_button(doc):
-    doc =json.loads(doc)
-    if doc.get('name'):
-       frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked In"})
       
     
 
 
-@frappe.whitelist()
-def check_out_button(doc):
-    doc =json.loads(doc)
-    if doc.get('name'):
-       frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked Out","check_out":now()})
+#@frappe.whitelist()
+#def check_out_button(doc):
+#    doc =json.loads(doc)
+#    if doc.get('name'):
+#       frappe.db.set_value("Room Folio HMS", {"name": doc.get('name')},{ "status":"Checked Out","check_out":now()})
 
 
 @frappe.whitelist()
@@ -137,5 +132,10 @@ def get_sales_order(doc):
      #  return B
     
     
-    
+@frappe.whitelist()
+def room_no_fltr(doctype, txt, searchfield, start, page_len, filters):
+    if txt:
+       filters.update({"name": ("like", "{0}%".format(txt))})
+    return frappe.get_all('Room HMS',filters={"room_type":"CLS-SIL"},fields=['name'],as_list=1)
+       
     

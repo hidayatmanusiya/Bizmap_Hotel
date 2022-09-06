@@ -11,9 +11,11 @@
   "guest_details_section",
   "guest",
   "address_type",
+  "customer_mobile",
   "column_break_5",
   "address",
   "address_line",
+  "customer_email",
   "room_details_section",
   "room_type",
   "room_no",
@@ -156,11 +158,23 @@
    "options": "Sign In Sheet HMS",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customer_mobile",
+   "fieldtype": "Int",
+   "label": "Customer Mobile"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-08-04 15:18:44.086525",
+ "modified": "2022-09-03 10:59:32.405910",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
