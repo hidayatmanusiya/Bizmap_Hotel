@@ -32,6 +32,8 @@ frappe.ui.form.on('Room Folio HMS', {
     frm.add_custom_button(__('Make Sign In sheet'), function(){
           let lcv = frappe.model.get_new_doc('Sign In Sheet HMS');
           lcv.room_folio = cur_frm.doc.name;
+          lcv.customer_email=cur_frm.doc.customer_email;
+          lcv.customer_mobile=cur_frm.doc.customer_mobile;
           frappe.set_route("Form", lcv.doctype, lcv.name);
             
     }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
@@ -65,6 +67,13 @@ frappe.ui.form.on('Room Folio HMS', {
         frm.set_value("check_out",frappe.datetime.now_datetime())
         frm.save('Update')
         frm.refresh();
+      frappe.call({
+         method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_cleanig_doc',
+          args: {
+           'doc':frm.doc
+         }
+        });
+
      },__("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});	
   }		
     },

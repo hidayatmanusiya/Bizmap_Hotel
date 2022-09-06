@@ -105,7 +105,8 @@ def before_save(doc,method):
     if avalible_room>0:
        avalible_for_booking= avalible_room-occupied_booking_room_from_so[0]
        print("avalible_for_booking",avalible_for_booking)
-       
+      # A=frappe.db.sql(""" select a.name,a.paid_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="SAL-ORD-2022-00022" """,as_dict=1) 
+
 
     
        

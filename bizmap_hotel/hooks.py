@@ -111,6 +111,11 @@ doc_events = {
 # 		"on_cancel": "method",
 # 		"on_trash": "method",
                "before_save":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_save"
+	},
+    "Payment Entry":{
+	   "before_save":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_save"
+	
+	
 	}
  }
 
