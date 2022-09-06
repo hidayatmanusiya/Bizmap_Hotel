@@ -8,6 +8,8 @@
  "field_order": [
   "room_folio_section",
   "room_folio",
+  "column_break_3",
+  "date",
   "guest_details_section",
   "guest",
   "address_type",
@@ -20,11 +22,16 @@
   "room_type",
   "room_no",
   "room_package",
+  "mode_of_payment",
+  "transaction_id",
   "column_break_7",
   "room_rate",
   "check_in",
   "check_out",
   "status",
+  "terms_and_conditions_section",
+  "select_terms_and_condition",
+  "terms_and_conditions",
   "document_section",
   "id_proof",
   "column_break_16",
@@ -170,11 +177,54 @@
    "fieldname": "customer_email",
    "fieldtype": "Data",
    "label": "Customer Email"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Select",
+   "label": "Mode Of Payment ",
+   "options": "\nCash\nUPI\nCheck\nBank Draft\nOnline Transfer\nOther"
+  },
+  {
+   "depends_on": "eval:(doc.mode_of_payment==\"UPI\" || doc.mode_of_payment==\"Online Transfer\" || doc.mode_of_payment==\"Check\" || doc.mode_of_payment==\"Bank Draft\" || doc.mode_of_payment==\"Other\")",
+   "fieldname": "transaction_id",
+   "fieldtype": "Data",
+   "label": "Transaction Id ",
+   "mandatory_depends_on": "eval:(doc.mode_of_payment==\"UPI\" || doc.mode_of_payment==\"Online Transfer\" || doc.mode_of_payment==\"Check\" || doc.mode_of_payment==\"Bank Draft\" || doc.mode_of_payment==\"Other\")",
+   "unique": 1
+  },
+  {
+   "fieldname": "terms_and_conditions_section",
+   "fieldtype": "Section Break",
+   "label": "Terms and Conditions "
+  },
+  {
+   "fieldname": "select_terms_and_condition",
+   "fieldtype": "Link",
+   "label": "Select Terms and Condition",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fetch_from": "select_terms_and_condition.terms",
+   "fieldname": "terms_and_conditions",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-03 10:59:32.405910",
+ "modified": "2022-09-06 14:07:47.468320",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
