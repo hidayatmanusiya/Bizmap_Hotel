@@ -95,7 +95,16 @@ def payment_entry(doc):
     print(get_value_frm_sale_order)
     return get_value_frm_sale_order
     
+@frappe.whitelist()
+def room_cleanig_doc(doc):
+    doc=json.loads(doc)
+    room_cleanig = frappe.new_doc('Room Cleaning')
+    room_cleanig.room_type=doc.get("room_type")
+    room_cleanig.room_no=doc.get("room_no")
+    room_cleanig.save()
+    frappe.msgprint(room_cleanig.name,"Room Cleanig document created")
     
+        
       
     
 
