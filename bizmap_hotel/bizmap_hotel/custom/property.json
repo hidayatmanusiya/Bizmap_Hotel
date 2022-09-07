@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Property",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2022-09-07 14:44:39.335917",
+   "default_value": null,
+   "doc_type": "Property",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "property_name",
+   "idx": 0,
+   "modified": "2022-09-07 14:44:39.335917",
+   "modified_by": "Administrator",
+   "name": "Property-property_name-reqd",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "reqd",
+   "property_type": "Check",
+   "row_name": null,
+   "value": "1"
+  }
+ ],
+ "sync_on_migrate": 1
+}
