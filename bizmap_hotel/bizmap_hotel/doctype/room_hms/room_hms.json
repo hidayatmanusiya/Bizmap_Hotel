@@ -63,12 +63,13 @@
   },
   {
    "fieldname": "status",
-   "fieldtype": "Data",
-   "label": "Status"
+   "fieldtype": "Link",
+   "label": "Status",
+   "options": "Room Status"
   }
  ],
  "links": [],
- "modified": "2022-08-31 14:22:25.690814",
+ "modified": "2022-09-07 16:40:25.538989",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room HMS",

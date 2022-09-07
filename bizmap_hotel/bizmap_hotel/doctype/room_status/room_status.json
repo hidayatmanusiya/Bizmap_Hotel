@@ -9,7 +9,8 @@
  "field_order": [
   "status",
   "disable",
-  "status_color"
+  "status_color",
+  "icon"
  ],
  "fields": [
   {
@@ -28,11 +29,16 @@
    "fieldname": "status_color",
    "fieldtype": "Color",
    "label": "Status Color"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-07 11:10:51.610453",
+ "modified": "2022-09-07 16:40:01.047711",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Status",
