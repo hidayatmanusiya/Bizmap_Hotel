@@ -116,6 +116,13 @@ doc_events = {
 
 # Scheduled Tasks
 # ---------------
+scheduler_events = {
+	"cron": {
+		"30 23 * * * *": [
+		"bizmap_hotel.utill.booking.insertbooking"
+		]
+	}
+}
 
 # scheduler_events = {
 # 	"all": [
