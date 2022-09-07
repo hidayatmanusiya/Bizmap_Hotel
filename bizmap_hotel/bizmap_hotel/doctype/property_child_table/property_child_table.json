@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-09-07 14:46:41.313265",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "property_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "property_name",
+   "fieldtype": "Link",
+   "label": "Property name",
+   "options": "Property"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-09-07 15:07:42.112740",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Property Child table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

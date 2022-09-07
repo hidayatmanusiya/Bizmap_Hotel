@@ -20,6 +20,8 @@
   "max_guest_per_room",
   "column_break_10",
   "size_sq_mt",
+  "property_name_section",
+  "property",
   "features_and_benefits_section",
   "features",
   "column_break_14",
@@ -121,10 +123,21 @@
    "fieldname": "complimentary_benefits",
    "fieldtype": "HTML Editor",
    "label": "Complimentary Benefits"
+  },
+  {
+   "fieldname": "property_name_section",
+   "fieldtype": "Section Break",
+   "label": "Property Name"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Table",
+   "label": "Property",
+   "options": "Property Child table"
   }
  ],
  "links": [],
- "modified": "2022-07-18 18:04:43.657154",
+ "modified": "2022-09-07 14:50:01.544610",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Type HMS",
