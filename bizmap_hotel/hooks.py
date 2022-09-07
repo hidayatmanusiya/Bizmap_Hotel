@@ -111,11 +111,23 @@ doc_events = {
 # 		"on_cancel": "method",
 # 		"on_trash": "method",
                "before_save":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_save"
+	},
+    "Payment Entry":{
+	   "before_save":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_save"
+	
+	
 	}
  }
 
 # Scheduled Tasks
 # ---------------
+scheduler_events = {
+	"cron": {
+		"30 23 * * * *": [
+		"bizmap_hotel.utill.booking.insertbooking"
+		]
+	}
+}
 
 # scheduler_events = {
 # 	"all": [
