@@ -9,7 +9,15 @@
  "field_order": [
   "property_name",
   "company",
-  "address"
+  "column_break_5",
+  "disable",
+  "contact_and_address",
+  "address",
+  "primary_address",
+  "column_break_8",
+  "contact",
+  "moblle_no",
+  "email_id"
  ],
  "fields": [
   {
@@ -31,11 +39,51 @@
    "fieldtype": "Link",
    "label": "Address",
    "options": "Address"
+  },
+  {
+   "fieldname": "primary_address",
+   "fieldtype": "Text",
+   "label": "Primary Address"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "contact_and_address",
+   "fieldtype": "Section Break",
+   "label": "Contact and Address"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "moblle_no",
+   "fieldtype": "Data",
+   "label": "Moblle No"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email Id"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-07 02:06:31.551839",
+ "modified": "2022-09-07 11:07:13.135562",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Property",
