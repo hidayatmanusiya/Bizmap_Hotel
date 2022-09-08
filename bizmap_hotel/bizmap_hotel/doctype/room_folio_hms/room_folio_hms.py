@@ -5,6 +5,7 @@ import frappe
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 import json
+import time
 from datetime import datetime ,timedelta,date
 from frappe.utils import getdate
 import frappe.utils
@@ -102,7 +103,10 @@ def room_cleanig_doc(doc):
     room_cleanig.room_type=doc.get("room_type")
     room_cleanig.room_no=doc.get("room_no")
     room_cleanig.save()
-    frappe.msgprint(room_cleanig.name,"Room Cleanig document created")
+    time.sleep(1)
+    frappe.msgprint(f"Room Cleanig document created. {room_cleanig.name} has been Marked As dirty room please assign for cleaning ",[room_cleanig.name])
+    return room_cleanig.name
+  
     
         
       
