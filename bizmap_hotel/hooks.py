@@ -123,7 +123,7 @@ doc_events = {
 # ---------------
 scheduler_events = {
 	"cron": {
-		"30 23 * * * *": [
+		"* * * * *": [
 		"bizmap_hotel.utill.booking.insertbooking"
 		]
 	}
