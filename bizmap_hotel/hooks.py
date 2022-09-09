@@ -42,7 +42,7 @@ doctype_js = {
    "Sign In Sheet HMS":"public/js/sign_in_sheet_hms.js"
 
 }
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {"Room Folio HMS" : "public/js/room_folio_hms_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
