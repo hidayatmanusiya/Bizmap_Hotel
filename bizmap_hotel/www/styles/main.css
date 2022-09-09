@@ -1,0 +1,243 @@
+body {
+  min-height: 100vh;
+  background-color: aquamarine;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-header {
+  display: flex;
+  color: #fff;
+  padding: 1em 0;
+  transition: background-color .5s, padding .5s, font-size .1s;
+  background-color: #2a6ac5;
+  flex: 0 0 auto;
+}
+
+.main-header #title-container {
+  display: inline-flex;
+  align-items: center;
+  flex: 1;
+  min-height: 3em;
+  overflow: hidden;
+}
+
+.main-header #title {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1em;
+  padding: 0.2em 0 0.2em 0.2em;
+  font-size: 1.8em;
+  background-size: 1.6em;
+  background-position-y: center;
+  white-space: nowrap;
+}
+
+.main-header #title img {
+  height: 35px;
+  width: 100%;
+  margin-right: 15px;
+}
+
+.main-header #tools {
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+  transition: background-color 0s, margin-top .3s;
+  padding-right: 1em;
+}
+
+.main-header #tools>.b-widget:not([data-group]) {
+  margin-left: .5em;
+}
+
+.main-footer {
+  display: flex;
+  color: #fff;
+  padding: 1em 0;
+  transition: background-color .5s, padding .5s, font-size .1s;
+  background-color: #2a6ac5;
+  flex: 0 0 auto;
+}
+
+.eventTooltip {
+  padding: 0;
+  margin: 0;
+}
+
+.eventTooltip h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.eventTooltip h3 span {
+  font-size: 12px;
+  font-weight: bold;
+  color: #27ca37;
+}
+
+.padding-right20 {
+  padding-right: 20px;
+}
+
+.versionText {
+  width: auto;
+  margin-left: 20px !important;
+}
+
+.dataText label,
+.versionText label {
+  color: #fff !important
+}
+
+.versionText .b-field-inner {
+  display: none;
+}
+
+.b-fa-info:before,
+.b-icon-info:before {
+  content: "\f013";
+}
+
+.b-highlighting .b-sch-event-wrap .b-sch-event.b-match {
+  opacity: 1;
+  box-shadow: 0 0 8px red;
+}
+
+.b-button.b-raised.b-blueNew {
+  background-color: #2edf1e;
+}
+
+
+/* frontdesk reservation status  */
+.b-sch-style-plain.b-sch-color-indigo .Pre-Check {
+  background-color: orange !important;
+  border-color: orange !important;
+}
+
+.hms-pre-check-in {
+  background-color: orange !important;
+}
+
+.b-sch-style-plain.b-sch-color-indigo .Checked {
+  background-color: mediumseagreen !important;
+  border-color: mediumseagreen !important;
+}
+
+.hms-in-house {
+  background-color: mediumseagreen !important;
+}
+
+.b-sch-style-plain.b-sch-color-indigo .Reservation {
+  background-color: purple !important;
+  border-color: purple !important;
+}
+
+.hms-ngtd-reservation {
+  background-color: purple !important;
+  color: white;
+}
+
+.b-sch-style-plain.b-sch-color-indigo .Reservation {
+  background-color: #97d7de !important;
+  border-color: #97d7de !important;
+}
+
+.hms-gtd-reservation {
+  background-color: #97d7de !important;
+}
+
+.b-sch-style-plain.b-sch-color-indigo .Skipper {
+  background-color: #cecece !important;
+  border-color: #cecece !important;
+}
+
+.hms-gtd-reservation {
+  background-color: #cecece !important;
+}
+
+/* frontdesk header */
+
+.ag-header-weekend {
+  background-color: orange;
+}
+
+.ag-header-holiday {
+  background-color: lightcoral;
+}
+
+.ag-header-today {
+  background-color: deepskyblue;
+}
+
+.hms-to-charge {
+  background-color: #ffc107 !important;
+}
+
+.ag-header-cell-label .ag-header-cell-text {
+  color: #666666;
+}
+
+/* frontdesk legend */
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  clear: both;
+}
+
+.legend li {
+  float: left;
+  margin-right: 10px;
+}
+
+.legend span {
+  border: 1px solid #ccc;
+  float: left;
+  width: 10px;
+  height: 14px;
+  margin: 2px;
+  padding: 0px 20px;
+}
+
+.legend i {
+  margin: 0px 5px;
+}
+
+.legend .title {
+  font-weight: bold;
+  color: #fff;
+}
+
+.hms-grid-total {
+  background-color: #eeeeee !important;
+  font-weight: bold;
+}
+
+.web-form-wrapper .form-section-heading {
+  background-color: #cccccc;
+  padding: 12px 5px;
+  font-weight: bold;
+}
+
+.hms-debit {
+  background-color: red;
+  color: white;
+}
+
+.hms-credit {
+  background-color: limegreen;
+  color: black;
+}
+
+.web-footer,
+.navbar.navbar-light{
+  display: none!important;
+}

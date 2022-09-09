@@ -1,0 +1,65 @@
+.b-sch-event {
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 100%;
+}
+
+#main .b-resourceheader {
+  height: 100%;
+}
+
+.b-grid-header {
+  height: 57px;
+}
+
+.b-unassigned-class.b-drag-proxy {
+  background: green;
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.b-unassigned-class.b-drag-proxy.b-drag-invalid {
+  background: red;
+}
+
+.b-unassigned-class.b-drag-proxy.b-horizontal {
+  align-items: flex-start;
+  padding-left: 0.5em;
+}
+
+.b-unassigned-class.b-drag-proxy.b-vertical {
+  justify-content: flex-start;
+  padding-top: 0.5em;
+}
+
+.b-aborting.b-unassigned-class {
+  transition: transform 0.3s !important;
+  background: red;
+  position: absolute !important;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0.8;
+  box-sizing: border-box;
+}
+.b-none{
+  display: none!important;
+}
+.b-grid-header[data-column="availabilityThisWeek"] .b-grid-header-text-content,
+.b-grid-header[data-column="availabilityNextWeek"] .b-grid-header-text-content {
+	white-space: normal;
+}
+dl dt{
+  margin: 5px 0;
+}
+dl dt.right{
+  text-align: center;
+}
+dl dt.right img{
+  margin: 0 5px;
+}
