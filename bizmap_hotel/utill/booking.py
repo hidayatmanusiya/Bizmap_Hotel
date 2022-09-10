@@ -1,4 +1,3 @@
-from venv import create
 import frappe
 import requests
 import json
@@ -33,21 +32,26 @@ def insertbooking():
         tr = response.json()
         j = json.loads(json.dumps(tr))
         for i in j['Reservations']['Reservation']:
-            for r in i['BookingTran']: 
-
+            for r in i['BookingTran']:
+                for t in r['RentalInfo']:
+                    
+                    # Sum Of Adult and Child 
+                    adult = t['Adult']
+                    child = t['Child']
+                    sum = int(adult) + int(child)
                   
-                stagging = frappe.new_doc("Sales Order")
-                stagging.guest = r['FirstName']
-                stagging.transactionid = r['TransactionId']
-                stagging.createdatetime = r['Createdatetime']
-                stagging.status = r['Status']
-                stagging.isconfirmed = r['IsConfirmed']
-                stagging.packagename = r['PackageName']
-                stagging.check_in = r['Start']
-                stagging.check_out = r['End']
-                stagging.total_amount = r['TotalAmountAfterTax'], 
-                stagging.gender = r['Gender'],
-                stagging.mobile = r['Mobile'],             
+                    stagging = frappe.new_doc("Sales Order")
+                    stagging.guest = r['FirstName']
+                    stagging.transactionid = r['TransactionId']
+                    stagging.createdatetime = r['Createdatetime']
+                    stagging.status = r['Status']
+                    stagging.isconfirmed = r['IsConfirmed']
+                    stagging.packagename = r['PackageName']
+                    stagging.check_in = r['Start']
+                    stagging.check_out = r['End']
+                    stagging.total_amount = r['TotalAmountAfterTax'], 
+                    stagging.gender = r['Gender'],
+                    stagging.mobile = r['Mobile'],             
                 # Create customer 
                 customer_list = frappe.get_list('Customer', fields=['customer_name'])
                 check = {'customer_name': stagging.guest}
@@ -87,6 +91,13 @@ def insertbooking():
                     guest.insert()
 
                  # Create Sales Order
+                #  Two Date Diff
+                start = date.fromisoformat(r['Start'])
+                end = date.fromisoformat(r['End'])
+                diff = end - start
+                
+
+                #Transaction Id Check
                 sales_order = frappe.get_list('Sales Order', fields=['transactionid'])
                 check = {'transactionid': stagging.transactionid}    
                 
@@ -97,9 +108,9 @@ def insertbooking():
                         "guest_cf":r['FirstName']+"-"+r['FirstName'],
                         "transactionid": r['TransactionId'],
                         "check_in_cf": r['Start'],
-                        "no_of_nights_cf": 1,
+                        "no_of_nights_cf": diff.days,
                         "check_out_cf": r['End'],
-                        "no_of_guest_cf": 1,
+                        "no_of_guest_cf": sum,
                         "room_type_cf":"European Plan",
                         "room_package_cf":r['RateplanName'],
                         "number_of_room": 1, 
