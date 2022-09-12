@@ -173,11 +173,11 @@
   {
    "allow_on_submit": 1,
    "fieldname": "status",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nPre-Check In\nChecked In\nChecked Out\nSkipper",
+   "options": "Room Folio Status HMS",
    "read_only": 1
   },
   {
@@ -344,7 +344,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-03 19:29:57.101773",
+ "modified": "2022-09-12 13:02:38.047696",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",
