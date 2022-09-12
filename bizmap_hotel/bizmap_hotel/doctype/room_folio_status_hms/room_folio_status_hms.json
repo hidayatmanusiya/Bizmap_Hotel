@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:status",
+ "creation": "2022-09-12 12:57:58.107787",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "status",
+  "disable",
+  "status_color",
+  "icon"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "DIsable"
+  },
+  {
+   "fieldname": "status_color",
+   "fieldtype": "Color",
+   "label": "Status Color"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "label": "Icon"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-09-12 12:57:58.107787",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Room Folio Status HMS",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
