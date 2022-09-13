@@ -70,6 +70,18 @@ def sales_order_item_transfer_to_sales_invoice(room_folio_ref):
            sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity,m.name from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
            sales_order_child_itm.append(sales_order_itm)
     return sales_order_child_itm
+
+@frappe.whitelist()
+def sales_order_sale_tax_to_sales_invoice_sale_tax(room_folio_ref):
+    sales_txt=[]
+    if room_folio_ref:
+       sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{room_folio_ref}' """,as_dict=1)]
+       
+       for i in sales_order_ref:
+           sales_tx_charges=frappe.db.sql(f""" select charge_type,account_head,rate from `tabSales Taxes and Charges` where parent ="{i}" """,as_dict=1)
+           sales_txt.append(sales_tx_charges)
+    return  sales_txt          
+    
     
     
 @frappe.whitelist()    

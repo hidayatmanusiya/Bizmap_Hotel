@@ -68,7 +68,29 @@ frappe.ui.form.on('Sales Invoice', {
             
           }
            
-        })
+        }),
+      
+      frappe.call({
+         method:'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.sales_order_sale_tax_to_sales_invoice_sale_tax',
+       args:{
+         'room_folio_ref':room_ref_no[0]
+         },
+        callback:function(r){
+          console.log("--++--++",r)
+          for (let i =0; i<r.message.length;i++) {
+           for(let j=0; j<[i].length;j++){
+            
+            var childTable_taxes = cur_frm.add_child("taxes");
+            childTable_taxes.charge_type= r.message[i][j].charge_type
+            childTable_taxes.account_head= r.message[i][j].account_head 
+            childTable_taxes.rate= r.message[i][j].rate
+            
+          }
+         } 
+        } 
+      
+      })  
+        
     }
   	
 })
