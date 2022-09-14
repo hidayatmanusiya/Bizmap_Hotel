@@ -161,6 +161,6 @@ def get_sales_order(doc):
 def room_no_fltr(doctype, txt, searchfield, start, page_len, filters):
     if txt:
        filters.update({"name": ("like", "{0}%".format(txt))})
-    return frappe.get_all('Room HMS',filters={"room_type":"CLS-SIL"},fields=['name'],as_list=1)
+    return frappe.get_all('Room HMS',filters=filters,fields=['name'],as_list=1)
        
     

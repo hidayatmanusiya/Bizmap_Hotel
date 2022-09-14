@@ -66,27 +66,28 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
 @frappe.whitelist()
 def doc_mapped_to_for_multiple_room_folio(doc):
     doc =json.loads(doc)
-    for i in range(doc.get('number_of_room')):
-        New_room_folio = frappe.new_doc('Room Folio HMS')
-        New_room_folio.reservation = doc.get('name')
-        New_room_folio.customer = doc.get('customer')
-        New_room_folio.reservation_notes= doc.get('reservation_notes_cf')
-        New_room_folio.room_type = doc.get('room_type_cf')
-        New_room_folio.room_package = doc.get('room_package_cf')
-        New_room_folio.room_rate = doc.get('room_rate_cf')
-        if doc.get("weekend_rate_cf"):
-           New_room_folio.room_rate=doc.get("weekend_rate_cf")
+    existing_room_folio=frappe.db.get_value("Room Folio HMS",{'reservation':doc.get('name')},'name')
+    if not existing_room_folio:
+       for i in range(doc.get('number_of_room')):
+           New_room_folio = frappe.new_doc('Room Folio HMS')
+           New_room_folio.reservation = doc.get('name')
+           New_room_folio.customer = doc.get('customer')
+           New_room_folio.reservation_notes= doc.get('reservation_notes_cf')
+           New_room_folio.room_type = doc.get('room_type_cf')
+           New_room_folio.room_package = doc.get('room_package_cf')
+           New_room_folio.room_rate = doc.get('room_rate_cf')
+           New_room_folio.check_out=doc.get('check_out_cf')
+           if doc.get("weekend_rate_cf"):
+              New_room_folio.room_rate=doc.get("weekend_rate_cf")
            
-           
-        New_room_folio.insert(
-           ignore_permissions=True,
-           ignore_links=True,
-           ignore_if_duplicate=True,
-           ignore_mandatory=True
-        
-        )
+           New_room_folio.insert(
+            ignore_permissions=True,
+            ignore_links=True,
+            ignore_if_duplicate=True,
+            ignore_mandatory=True
+            )
     
-    
+           New_room_folio.run_method('submit')
 
 
 def before_save(doc,method):
