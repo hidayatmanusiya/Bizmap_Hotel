@@ -11,6 +11,7 @@
   "room_type_code",
   "room_type",
   "company",
+  "total_room",
   "column_break_4",
   "abbr",
   "service_item",
@@ -134,10 +135,15 @@
    "fieldtype": "Table",
    "label": "Property",
    "options": "Property Child table"
+  },
+  {
+   "fieldname": "total_room",
+   "fieldtype": "Int",
+   "label": "Total Room"
   }
  ],
  "links": [],
- "modified": "2022-09-07 14:50:01.544610",
+ "modified": "2022-09-15 14:37:38.564352",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Type HMS",

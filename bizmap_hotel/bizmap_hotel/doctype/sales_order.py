@@ -106,6 +106,11 @@ def before_save(doc,method):
     if avalible_room>0:
        avalible_for_booking= avalible_room-occupied_booking_room_from_so[0]
        print("avalible_for_booking",avalible_for_booking)
+       update_room_type=frappe.get_doc("Room Type HMS",doc.room_type_cf)
+       update_room_type.total_room=total_room[0]
+       update_room_type.available_room_= avalible_for_booking
+       update_room_type.save()
+
       # A=frappe.db.sql(""" select a.name,a.paid_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="SAL-ORD-2022-00022" """,as_dict=1) 
 
 
