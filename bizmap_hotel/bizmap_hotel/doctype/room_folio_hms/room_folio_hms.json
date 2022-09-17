@@ -218,6 +218,7 @@
    "label": "Guest Details"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "room_guest_detail",
    "fieldtype": "Table",
    "label": "Room Guest Detail",
@@ -344,7 +345,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-12 13:02:38.047696",
+ "modified": "2022-09-17 14:44:47.143769",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",

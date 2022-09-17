@@ -86,7 +86,6 @@ def doc_mapped_to_for_multiple_room_folio(doc):
             ignore_if_duplicate=True,
             ignore_mandatory=True
             )
-    
            New_room_folio.run_method('submit')
 
 
@@ -110,7 +109,7 @@ def before_save(doc,method):
        update_room_type.total_room=total_room[0]
        update_room_type.available_room_= avalible_for_booking
        update_room_type.save()
-
+       
       # A=frappe.db.sql(""" select a.name,a.paid_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="SAL-ORD-2022-00022" """,as_dict=1) 
 
 
