@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 import json
 import time
+import re
 from datetime import datetime ,timedelta,date
 from frappe.utils import getdate
 import frappe.utils
@@ -119,6 +120,18 @@ def room_cleanig_doc(doc):
     frappe.msgprint(f"Room Cleanig document created. {room_cleanig.name} has been Marked As dirty room please assign for cleaning ",[room_cleanig.name])
     return room_cleanig.name
   
+    
+def on_change(doc,method):
+    room_no=frappe.db.sql(f"""  SELECT CASE WHEN EXISTS (
+    SELECT *
+    FROM `tabRoom HMS`
+    WHERE room_type = "{doc.room_type}"
+    and name="{doc.room_no}"
+)   
+THEN  1 ELSE  0 end """,as_dict=0)
+    value=re.sub(r"[\([{,})\]]","",str(room_no))
+    if value == "0":
+       frappe.throw(f" '{doc.room_no}' is not belongs to room_type '{doc.room_type}' please select proper Room No ")
     
         
       

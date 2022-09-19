@@ -116,7 +116,10 @@ doc_events = {
 	   "before_save":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_save"
 	
 	
-	}
+	},
+    "Room Folio HMS":{
+      "on_change":"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change"
+    }	
  }
 
 # Scheduled Tasks
