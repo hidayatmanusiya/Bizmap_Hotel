@@ -502,7 +502,7 @@ body.b-size-phone #container::after {
 }
 
 #main {
-  height: 78vh;
+  height: 81vh;
 }
 
 #main .b-resourceheader {
@@ -579,7 +579,9 @@ dl dt.right img {
 .navbar.navbar-light,
 .web-footer {
   display: none !important;
-}body {
+}
+
+.b-grid-header-text  { padding : 0; } body {
   min-height: 100vh;
   background-color: aquamarine;
 }
@@ -595,7 +597,7 @@ dl dt.right img {
   color: #fff;
   padding: 1em 0;
   transition: background-color .5s, padding .5s, font-size .1s;
-  background-color: #2a6ac5;
+  background-color: #0f172b;
   flex: 0 0 auto;
 }
 
@@ -640,7 +642,7 @@ dl dt.right img {
   color: #fff;
   padding: 1em 0;
   transition: background-color .5s, padding .5s, font-size .1s;
-  background-color: #2a6ac5;
+  background-color: #0f172b;
   flex: 0 0 auto;
 }
 
