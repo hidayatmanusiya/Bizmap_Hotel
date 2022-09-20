@@ -112,7 +112,7 @@ frappe.ui.form.on('Room Folio HMS', {
  
  },
  onload:function(frm){
-    let value = frappe.db.get_value('Sales Order',{'name':frm.doc.reservation},['transaction_date','total'],(r) =>{
+    let value = frappe.db.get_value('Sales Order',{'name':frm.doc.reservation},['transaction_date','grand_total'],(r) =>{
     if (frm.doc.reservation!=null){
        frappe.call({
     method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.description_for_sales_books',
@@ -126,7 +126,7 @@ frappe.ui.form.on('Room Folio HMS', {
        childTable_so_itm.sales_order=frm.doc.reservation
        childTable_so_itm.date=r.transaction_date
        childTable_so_itm.description= p.message[0].description
-       childTable_so_itm.amount=r.total
+       childTable_so_itm.amount=r.grand_total
         cur_frm.refresh();
          }
        } 

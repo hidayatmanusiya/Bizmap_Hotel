@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 import json
 import time
+import re
 from datetime import datetime ,timedelta,date
 from frappe.utils import getdate
 import frappe.utils
@@ -70,6 +71,18 @@ def sales_order_item_transfer_to_sales_invoice(room_folio_ref):
            sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity,m.name from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{room_folio_ref}' """,as_dict=0)
            sales_order_child_itm.append(sales_order_itm)
     return sales_order_child_itm
+
+@frappe.whitelist()
+def sales_order_sale_tax_to_sales_invoice_sale_tax(room_folio_ref):
+    sales_txt=[]
+    if room_folio_ref:
+       sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{room_folio_ref}' """,as_dict=1)]
+       
+       for i in sales_order_ref:
+           sales_tx_charges=frappe.db.sql(f""" select charge_type,account_head,rate from `tabSales Taxes and Charges` where parent ="{i}" """,as_dict=1)
+           sales_txt.append(sales_tx_charges)
+    return  sales_txt          
+    
     
     
 @frappe.whitelist()    
@@ -107,6 +120,18 @@ def room_cleanig_doc(doc):
     frappe.msgprint(f"Room Cleanig document created. {room_cleanig.name} has been Marked As dirty room please assign for cleaning ",[room_cleanig.name])
     return room_cleanig.name
   
+    
+def on_change(doc,method):
+    room_no=frappe.db.sql(f"""  SELECT CASE WHEN EXISTS (
+    SELECT *
+    FROM `tabRoom HMS`
+    WHERE room_type = "{doc.room_type}"
+    and name="{doc.room_no}"
+)   
+THEN  1 ELSE  0 end """,as_dict=0)
+    value=re.sub(r"[\([{,})\]]","",str(room_no))
+    if value == "0":
+       frappe.throw(f" '{doc.room_no}' is not belongs to room_type '{doc.room_type}' please select proper Room No ")
     
         
       
@@ -149,6 +174,6 @@ def get_sales_order(doc):
 def room_no_fltr(doctype, txt, searchfield, start, page_len, filters):
     if txt:
        filters.update({"name": ("like", "{0}%".format(txt))})
-    return frappe.get_all('Room HMS',filters={"room_type":"CLS-SIL"},fields=['name'],as_list=1)
+    return frappe.get_all('Room HMS',filters=filters,fields=['name'],as_list=1)
        
     

@@ -32,13 +32,15 @@ frappe.ui.form.on('Room Folio HMS', {
 						        //console.log("selections",selections)
 						         
 						    let sales_invoice = frappe.model.get_new_doc('Sales Invoice')
+						        
 						         sales_invoice.naming_series="SINV-.YY.-"
 						         sales_invoice.company=frm.doc.company
 						         sales_invoice.customer=frm.doc.customer
-						         sales_invoice.posting_date='20-08-2022'
+						         sales_invoice.posting_date=frappe.datetime.nowdate()
+						         sales_invoice.selling_price_list="Standard Selling"
 			                                frappe.set_route("Form", sales_invoice.doctype, sales_invoice.name)
+frappe.db.get_value("Company",{"name":frm.doc.company},['default_income_account','default_expense_account','cost_center'],(p) =>{       
 						     for (let i =0; i<selections.length;i++){
-				                      
 				                      frappe.model.with_doc("Sales Order",selections[i],function(){
                                                      var itemschild_data = frappe.model.get_doc("Sales Order",selections[i])
                                                       if(itemschild_data.items){
@@ -49,11 +51,13 @@ frappe.ui.form.on('Room Folio HMS', {
 	                                   
 	                                               $.extend(detail, {
                                                       "item_code":row.item_code,
-                                                      "qty":row.qty,
                                                       "item_name":row.item_name,
                                                       "description":row.description,
                                                       "uom":row.uom,
-                                                      "sales_order":selections[i]
+                                                      "qty":row.qty,
+                                                      "sales_order":selections[i],
+                                                      "income_account" : p.default_income_account,
+                                                      "cost_center" :p.cost_center
                                                        });
 	                                        })
 	   
@@ -62,7 +66,7 @@ frappe.ui.form.on('Room Folio HMS', {
                                      })
                              
 			 }
-										
+		     })								
 									
 							    
 							      
