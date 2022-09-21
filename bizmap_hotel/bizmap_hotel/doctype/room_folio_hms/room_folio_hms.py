@@ -132,8 +132,16 @@ THEN  1 ELSE  0 end """,as_dict=0)
     value=re.sub(r"[\([{,})\]]","",str(room_no))
     if value == "0":
        frappe.throw(f" '{doc.room_no}' is not belongs to room_type '{doc.room_type}' please select proper Room No ")
-    
-        
+    non_existing_so=[] # from here to check duplicate so in booked sale tbl 
+    for ma in frappe.get_all("Room Folio HMS",{"reservation":doc.reservation},"name"):
+        booked_sale_tbl=[d.sales_order for d in frappe.get_all("Sales Book Item",{"parent":ma.name},['sales_order'])]
+        for i in booked_sale_tbl:
+            if i not in non_existing_so:
+               non_existing_so.append(i)
+            else:
+                frappe.throw("Student <b>{0}</b> already Exists in Sales Book Item <b>{1}</b>".format(i,ma.name))   
+
+
       
     
 
