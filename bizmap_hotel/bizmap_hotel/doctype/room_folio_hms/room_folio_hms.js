@@ -37,8 +37,11 @@ frappe.ui.form.on('Room Folio HMS', {
 						         sales_invoice.company=frm.doc.company
 						         sales_invoice.customer=frm.doc.customer
 						         sales_invoice.posting_date=frappe.datetime.nowdate()
-						         sales_invoice.selling_price_list="Standard Selling"
-			                                frappe.set_route("Form", sales_invoice.doctype, sales_invoice.name)
+						         //sales_invoice.selling_price_list="Standard Selling"
+						    setTimeout(()=>{
+                                                     frappe.set_route("Form", sales_invoice.doctype, sales_invoice.name)
+                                                    },3000)    
+			                                
 frappe.db.get_value("Company",{"name":frm.doc.company},['default_income_account','default_expense_account','cost_center'],(p) =>{       
 						     for (let i =0; i<selections.length;i++){
 				                      frappe.model.with_doc("Sales Order",selections[i],function(){
@@ -64,8 +67,36 @@ frappe.db.get_value("Company",{"name":frm.doc.company},['default_income_account'
                                            }
 
                                      })
+                                     
+                                     //---- for insert selected sales order in table 
+           let value = frappe.db.get_value('Sales Order',{'name':selections[i]},['transaction_date','grand_total'],(r) =>{  
+                         frappe.call({
+                             method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.description_for_sales_books',
+                            args: {
+                            name:selections[i]
+                             },
+	                   async: false,
+                         callback: function(p) {
+                         var childTable_so_itm = cur_frm.add_child("sales_book_item")
+                             childTable_so_itm.sales_order=selections[i]
+                             childTable_so_itm.date=r.transaction_date
+                             childTable_so_itm.amount=r.grand_total
+                             childTable_so_itm.description= p.message[0].description
                              
+                             
+                             }
+                              
+                          });
+                          
+                            setTimeout(() => {
+                               frm.save('Update')
+                            }, 100)
+                                   
+                                     })
+                             //---------
+                              
 			 }
+			 
 		     })								
 									
 							    
