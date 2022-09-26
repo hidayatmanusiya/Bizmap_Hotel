@@ -12,11 +12,10 @@ def insertbooking():
     url = "https://live.ipms247.com/pmsinterface/pms_connectivity.php"
 
     headers = CaseInsensitiveDict()
-    headers["Accept"] = "application/xml"
-    headers["Content-Type"] = "application/xml"
+    headers["Accept"] = "application/json"
+    headers["Content-Type"] = "application/json"
 
-    data = """
-    {
+    data = {
         "RES_Request": {
                 "Request_Type": "Bookings",
                 "Authentication": {
@@ -25,17 +24,16 @@ def insertbooking():
                     }
             }
     }
-    """
 
-    response = requests.post(url, headers=headers, data=data)
+    response = requests.post(url, headers=headers, data=json.dumps(data))
     if (response.status_code == 200):
         tr = response.json()
-        j = json.loads(json.dumps(tr))
-        for i in j['Reservations']['Reservation']:
+        # j = json.loads(json.dumps(tr))
+        unique_id_list = [{'unique_id': i['UniqueID']} for i in tr['Reservations']['Reservation']]
+        for i in tr['Reservations']['Reservation']:
             for r in i['BookingTran']:
                 for t in r['RentalInfo']:
                     
-                    # Sum Of Adult and Child 
                     adult = t['Adult']
                     child = t['Child']
                     sum = int(adult) + int(child)
@@ -106,21 +104,22 @@ def insertbooking():
                         "doctype": "Sales Order",
                         "customer": r['FirstName'],
                         "guest_cf":r['FirstName']+"-"+r['FirstName'],
+                        "booking_type": "Online Booking",
                         "transactionid": r['TransactionId'],
                         "check_in_cf": r['Start'],
                         "no_of_nights_cf": diff.days,
                         "check_out_cf": r['End'],
                         "no_of_guest_cf": sum,
-                        "room_type_cf":"European Plan",
-                        "room_package_cf":r['RateplanName'],
+                        "room_type_cf":r['RoomTypeCode'],
+                        "room_package_cf":r['RoomTypeName'],
                         "number_of_room": 1, 
                         "room_rate_cf": r['TotalAmountBeforeTax'],  
                         # "taxes_and_charges":"Output GST In-state - B"                   
                         
                 })      
                     sales_order_api.append("items",{
-                                            'item_code':r['RateplanName'],
-                                            'item_name':r['RateplanName'],
+                                            'item_code':r['RoomTypeName'],
+                                            'item_name':r['RoomTypeName'],
                                             'qty':1,
                                             "reservation_date_from": r['Start'],
                                             "reservation_date_to": r['End'],

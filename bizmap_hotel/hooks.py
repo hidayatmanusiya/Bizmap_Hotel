@@ -127,7 +127,9 @@ doc_events = {
 scheduler_events = {
 	"cron": {
 		"* * * * *": [
-		"bizmap_hotel.utill.booking.insertbooking"
+		"bizmap_hotel.utill.booking.insertbooking",
+		"bizmap_hotel.utill.room.update_room"
+		
 		]
 	}
 }
