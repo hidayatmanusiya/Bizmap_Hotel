@@ -1,6 +1,6 @@
 frappe.ui.form.on('Sales Order', {
     refresh:function(frm){
-   
+      
    frm.add_custom_button(__('Frondesk'), function(){
         //frappe.set_route(["query-report", "Gross Profit"]);
     })
@@ -42,7 +42,27 @@ frappe.ui.form.on('Sales Order', {
           }
 	});
     }
-    
+    if(frm.doc.contact_email && frm.doc.check_in_cf==null)
+       {
+         
+         var fill_so_form=frappe.db.get_value("Sales Order",{'contact_email':frm.doc.contact_email},'*',(r) => {
+           console.log(r.customer)
+           frm.set_value("customer",r.customer)
+           frm.set_value("guest_cf",r.guest_cf)
+           frm.set_value("booking_type",r.booking_type)
+           frm.set_value("check_in_cf",r.check_in_cf)
+           frm.set_value("no_of_nights_cf",r.no_of_nights_cf)
+           frm.set_value("check_out_cf",r.check_out_cf)
+           frm.set_value("no_of_guest_cf",r.no_of_guest_cf)
+           frm.set_value("reservation_notes_cf",r.reservation_notes_cf)
+           frm.set_value("room_type_cf",r.room_type_cf)
+           frm.set_value("room_package_cf",r.room_package_cf)
+           frm.set_value("number_of_room",r.number_of_room)
+           frm.set_value("room_rate_cf",r.room_rate_cf)
+           frm.set_value("weekend_rate_cf",r.weekend_rate_cf)
+           
+         })
+       }
      },
      no_of_nights_cf(frm){
                frappe.call({

@@ -5,7 +5,7 @@ frappe.ui.form.on('Room Folio HMS', {
 	refresh: function(frm) {
 	      if(frm.doc.docstatus==1){
 		frm.add_custom_button(__("Sales Order"), function() {
-			var so_list = [];
+			var so_list = [""];
 			frappe.call({
 				method:"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.get_sales_order",
 				args:{
@@ -20,7 +20,7 @@ frappe.ui.form.on('Room Folio HMS', {
 						    doctype: "Sales Order",
 						    target: cur_frm,
 						    setters: {
-						        //status: 'Pending'
+						        "contact_email": frm.doc.customer_email,
 						    },
 						    primary_action_label:__("Get Data"),
 						    get_query: function () {
@@ -104,6 +104,7 @@ frappe.db.get_value("Company",{"name":frm.doc.company},['default_income_account'
 							    $(".modal").modal("hide");
 						    }
 						});
+						
                     }
 				}
             });

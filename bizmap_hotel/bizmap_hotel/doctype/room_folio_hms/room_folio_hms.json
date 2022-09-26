@@ -264,6 +264,7 @@
    "label": "Finance Summary"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_charges",
    "fieldtype": "Currency",
    "label": "Total Charges",
@@ -344,7 +345,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-19 13:23:30.604505",
+ "modified": "2022-09-23 13:05:31.331001",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",

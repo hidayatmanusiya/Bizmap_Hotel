@@ -140,8 +140,13 @@ THEN  1 ELSE  0 end """,as_dict=0)
                non_existing_so.append(i)
             else:
                 frappe.throw("Student <b>{0}</b> already Exists in Sales Book Item <b>{1}</b>".format(i,ma.name))   
-
-
+      
+    sales_book_itm= doc.sales_book_item
+    amount =0
+    for p in sales_book_itm:
+        amount = amount + p.amount
+        doc.total_charges=amount
+        
       
     
 
@@ -161,7 +166,7 @@ def get_sales_order(doc):
     #return sales_order_list if len(sales_order_list)>0 else 0
     doc =json.loads(doc)
     sales_order_invoice=[i.name for i in frappe.db.sql(f""" select a.name from `tabSales Order` as a inner join `tabSales Invoice Item` as m inner join `tabSales Invoice` as p  where a.name=m.sales_order and p.customer='{doc.get("customer")}' """,as_dict=1)]
-   # print(sales_order_invoice)
+    print("sales_order_invoice",sales_order_invoice)
     for i in sales_order_invoice:
         sales_invoice_not_md=[j.name for j in frappe.db.sql(f""" select name from `tabSales Order` where name != "{sales_order_invoice}" and customer='{doc.get("customer")}' """,as_dict=1)]
        # print(sales_invoice_not_md)
@@ -169,11 +174,15 @@ def get_sales_order(doc):
         s1=set(sales_order_invoice)
         s2=set(sales_invoice_not_md)
         array=list(s2.difference(s1))
-        print(sales_invoice_not_md)
-        return array
+        print("++++++",sales_invoice_not_md)
+        print("++++++",array)
+        if sales_order_invoice[0]==None:
+           return []
+        else:   
+           return array
     #for j in frappe.db.sql(""" select name from `tabSales Order` """,as_dict=1):
-    
-    #B=frappe.db.sql(f""" select m.sales_order from `tabSales Order`as S inner join `tabSales Invoice` as a inner join `tabSales Invoice Item` as m on m.parent=a.name where sales_order="{j.name}" """,as_dict=1)
+     #   B=frappe.db.sql(f""" select m.sales_order from `tabSales Order`as S inner join `tabSales Invoice` as a inner join `tabSales Invoice Item` as m on m.parent=a.name where sales_order="{j.name}" """,as_dict=1)
+      #  print("B",B)
     #if not B:
      #  return B
     
