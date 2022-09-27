@@ -160,31 +160,29 @@ THEN  1 ELSE  0 end """,as_dict=0)
 
 @frappe.whitelist()
 def get_sales_order(doc):
-    #sales_order_list =[s.get('sales_order') for s in frappe.db.get_list("Sales Invoice Item", {'docstatus':1}, 'sales_order')]
-    
-    #print(sales_order_list)
-    #return sales_order_list if len(sales_order_list)>0 else 0
     doc =json.loads(doc)
-    sales_order_invoice=[i.name for i in frappe.db.sql(f""" select a.name from `tabSales Order` as a inner join `tabSales Invoice Item` as m inner join `tabSales Invoice` as p  where a.name=m.sales_order and p.customer='{doc.get("customer")}' """,as_dict=1)]
-    print("sales_order_invoice",sales_order_invoice)
-    for i in sales_order_invoice:
-        sales_invoice_not_md=[j.name for j in frappe.db.sql(f""" select name from `tabSales Order` where name != "{sales_order_invoice}" and customer='{doc.get("customer")}' """,as_dict=1)]
-       # print(sales_invoice_not_md)
+    sales_order_without_invoice_list=[]
+    date_range=frappe.db.get_value("Sales Order",{"name":doc.get("reservation")},['check_in_cf','check_out_cf'])
+    print("dt",date_range)
+    if date_range is not None:
+       sales_order=[i.name for i in frappe.db.sql(f""" select name from `tabSales Order` where check_in_cf and check_out_cf between "{date_range[0]}" and "{date_range[1]}" and contact_email='{doc.get("customer_email")}' """,as_dict=1)]
+       print(sales_order)
+       for so in sales_order:
+           sales_order_with_invoice=[i.sales_order for i in frappe.db.sql(f""" select sales_order from `tabSales Invoice Item` where sales_order="{so}" """,as_dict=1)]
+      
+           if so not in sales_order_with_invoice:
+              sales_order_without_invoice_list.append(so)
+    return sales_order_without_invoice_list
+            
+           
+               
        
-        s1=set(sales_order_invoice)
-        s2=set(sales_invoice_not_md)
-        array=list(s2.difference(s1))
-        print("++++++",sales_invoice_not_md)
-        print("++++++",array)
-        if sales_order_invoice[0]==None:
-           return []
-        else:   
-           return array
-    #for j in frappe.db.sql(""" select name from `tabSales Order` """,as_dict=1):
-     #   B=frappe.db.sql(f""" select m.sales_order from `tabSales Order`as S inner join `tabSales Invoice` as a inner join `tabSales Invoice Item` as m on m.parent=a.name where sales_order="{j.name}" """,as_dict=1)
-      #  print("B",B)
-    #if not B:
-     #  return B
+           
+        
+
+         
+    
+
     
     
 @frappe.whitelist()
