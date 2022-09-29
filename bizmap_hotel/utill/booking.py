@@ -154,11 +154,11 @@ def insertbooking():
                     for t in r['TaxDeatil']:
                         sales_order_api.append("taxes",{
                                             'charge_type':"Actual",
-                                            'account_head':t['TaxName']+" "+"- B",
+                                            'account_head':t['TaxName']+" "+"- BH",
                                             'rate':"0.00",
                                             'tax_amount':t['TaxAmount'],
                                             # "total": r['TotalAmountAfterTax'],
-                                            'description':t['TaxName']+" "+"- B",
+                                            'description':t['TaxName']+" "+"- BH",
                                         })                    
 
                     sales_order_api.insert() 
