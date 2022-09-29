@@ -116,6 +116,10 @@ def room_cleanig_doc(doc):
     room_cleanig.room_type=doc.get("room_type")
     room_cleanig.room_no=doc.get("room_no")
     room_cleanig.save()
+    if doc.get("room_no"):
+       room_no=frappe.get_doc("Room HMS",doc.get("room_no"))
+       room_no.status="Dirty"
+       room_no.save()
     time.sleep(1)
     frappe.msgprint(f"Room Cleanig document created. {room_cleanig.name} has been Marked As dirty room please assign for cleaning ",[room_cleanig.name])
     return room_cleanig.name
@@ -175,8 +179,13 @@ def get_sales_order(doc):
     return sales_order_without_invoice_list
             
            
-               
-       
+@frappe.whitelist()               
+def room_master_status(doc):
+    doc =json.loads(doc)
+    if doc.get("room_no"):
+       room_no=frappe.get_doc("Room HMS",doc.get("room_no"))
+       room_no.status="Occupied"
+       room_no.save()
            
         
 
