@@ -31,7 +31,19 @@ def insertbooking():
         # j = json.loads(json.dumps(tr))
         unique_id_list = [{'unique_id': i['UniqueID']} for i in tr['Reservations']['Reservation']]
         for i in tr['Reservations']['Reservation']:
+            unique_id_count_list = []
+            for u in unique_id_list:
+                unique_id_count_dict, count = {},0
+                result = [r['SubBookingId'] for r in i['BookingTran'] if r['SubBookingId'].startswith(u['unique_id'])]
+                if len(result) > 0:
+                    room_count = len(result)
+
+            Uniq = i['UniqueID']
+            num = "2"
+
             for r in i['BookingTran']:
+                if r['SubBookingId'] == Uniq+"-"+num:
+                    break
                 for t in r['RentalInfo']:
                     
                     adult = t['Adult']
@@ -70,21 +82,32 @@ def insertbooking():
                         "doctype": "Contact",
                         "first_name": stagging.guest,
                         # "last_name": stagging.guest,
-                        "gender":'Male'
+                        "gender":r['Gender']
                         
                     })
+
+                    #Mail   
+                    guest.append("email_ids",{
+                                            'email_id':r['Email'],
+                                            'is_primary':1,
+                                            
+                                            
+                                })
+                    
+                    #Mobile Number                    
                     guest.append("phone_nos",{
-                                            'phone':'+91 9724503250',
+                                            'phone':r['Mobile'],
                                             'is_primary_mobile_no':1,
                                             
                                             
-                                        })
+                                })
+                    #Customer 
                     guest.append("links",{
                                             'link_doctype':'Customer',
                                             'link_name':stagging.guest,
                                             'link_title':stagging.guest,
                                             
-                                        })
+                                })
 
                     guest.insert()
 
@@ -93,6 +116,9 @@ def insertbooking():
                 start = date.fromisoformat(r['Start'])
                 end = date.fromisoformat(r['End'])
                 diff = end - start
+
+                # Total Qty
+                qty = diff.days * room_count
                 
 
                 #Transaction Id Check
@@ -112,7 +138,7 @@ def insertbooking():
                         "no_of_guest_cf": sum,
                         "room_type_cf":r['RoomTypeCode'],
                         "room_package_cf":r['RoomTypeName'],
-                        "number_of_room": 1, 
+                        "number_of_room": room_count, 
                         "room_rate_cf": r['TotalAmountBeforeTax'],  
                         # "taxes_and_charges":"Output GST In-state - B"                   
                         
@@ -120,7 +146,7 @@ def insertbooking():
                     sales_order_api.append("items",{
                                             'item_code':r['RoomTypeName'],
                                             'item_name':r['RoomTypeName'],
-                                            'qty':1,
+                                            'qty':qty,
                                             "reservation_date_from": r['Start'],
                                             "reservation_date_to": r['End'],
                                             
@@ -128,11 +154,11 @@ def insertbooking():
                     for t in r['TaxDeatil']:
                         sales_order_api.append("taxes",{
                                             'charge_type':"Actual",
-                                            'account_head':t['TaxName']+" "+"- B",
+                                            'account_head':t['TaxName']+" "+"- BH",
                                             'rate':"0.00",
                                             'tax_amount':t['TaxAmount'],
                                             # "total": r['TotalAmountAfterTax'],
-                                            'description':t['TaxName']+" "+"- B",
+                                            'description':t['TaxName']+" "+"- BH",
                                         })                    
 
                     sales_order_api.insert() 

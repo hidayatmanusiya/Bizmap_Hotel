@@ -69,6 +69,14 @@ frappe.ui.form.on('Room Folio HMS', {
         frm.set_value("status","Checked In")
         frm.save('Update')
         frm.refresh(); 
+        frappe.call({
+        method:"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_master_status",
+        args:{
+        "doc":frm.doc
+        }
+        
+        })
+        
      },__("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
      
  } 	
