@@ -4,10 +4,15 @@ import json
 from datetime import date, datetime, timedelta
 import requests
 from requests.structures import CaseInsensitiveDict
+import re
 
 
 @frappe.whitelist(allow_guest=True)
 def insertbooking():
+
+    company = frappe.defaults.get_user_default("Company")
+    abbr = frappe.db.sql("select abbr from `tabCompany` where company_name = %s", company)
+    # frappe.msgprint(abbr)
 
     url = "https://live.ipms247.com/pmsinterface/pms_connectivity.php"
 
@@ -49,6 +54,9 @@ def insertbooking():
                     adult = t['Adult']
                     child = t['Child']
                     sum = int(adult) + int(child)
+
+                    tax = f'{abbr[0]}'
+                    tax_name = re.sub("[('',)]", "", tax)    
                   
                     stagging = frappe.new_doc("Sales Order")
                     stagging.guest = r['FirstName']
@@ -121,6 +129,8 @@ def insertbooking():
                 qty = diff.days * room_count
                 
 
+               
+
                 #Transaction Id Check
                 sales_order = frappe.get_list('Sales Order', fields=['transactionid'])
                 check = {'transactionid': stagging.transactionid}    
@@ -128,6 +138,7 @@ def insertbooking():
                 if check not in sales_order:
                     sales_order_api = frappe.get_doc({
                         "doctype": "Sales Order",
+                        "company": company,
                         "customer": r['FirstName'],
                         "guest_cf":r['FirstName']+"-"+r['FirstName'],
                         "booking_type": "Online Booking",
@@ -140,7 +151,8 @@ def insertbooking():
                         "room_package_cf":r['RoomTypeName'],
                         "number_of_room": room_count, 
                         "room_rate_cf": r['TotalAmountBeforeTax'],  
-                        # "taxes_and_charges":"Output GST In-state - B"                   
+                        # "taxes_and_charges":"Output GST In-state - B"   
+                                   
                         
                 })      
                     sales_order_api.append("items",{
@@ -154,11 +166,12 @@ def insertbooking():
                     for t in r['TaxDeatil']:
                         sales_order_api.append("taxes",{
                                             'charge_type':"Actual",
-                                            'account_head':t['TaxName']+" "+"- BH",
+                                            'account_head':t['TaxName']+" "+"- "+tax_name,
                                             'rate':"0.00",
                                             'tax_amount':t['TaxAmount'],
                                             # "total": r['TotalAmountAfterTax'],
-                                            'description':t['TaxName']+" "+"- BH",
+                                            'description':t['TaxName']+" "+"- "+tax_name,
+                                           
                                         })                    
 
                     sales_order_api.insert() 
@@ -167,6 +180,3 @@ def insertbooking():
 
     else:
         frappe.msgprint("Auth Wrong")
-
-
-
