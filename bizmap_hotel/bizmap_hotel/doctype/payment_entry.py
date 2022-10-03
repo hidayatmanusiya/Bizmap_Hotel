@@ -10,7 +10,6 @@ def before_save(doc,method):
     room_folio=frappe.db.get_value("Room Folio HMS",{"reservation":doc.room_folio_reference},"name")
     if room_folio:
        paymet_entry=frappe.db.sql(f""" select a.name,a.paid_amount,a.posting_date from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="{doc.room_folio_reference}" """,as_dict=1)
-       print(paymet_entry)
        room_folio_payment=frappe.get_doc('Room Folio HMS',room_folio)
        room_folio_payment.collected_payment=[]
        for i in paymet_entry:

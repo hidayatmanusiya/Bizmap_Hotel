@@ -116,6 +116,10 @@ def room_cleanig_doc(doc):
     room_cleanig.room_type=doc.get("room_type")
     room_cleanig.room_no=doc.get("room_no")
     room_cleanig.save()
+    if doc.get("room_no"):
+       room_no=frappe.get_doc("Room HMS",doc.get("room_no"))
+       room_no.status="Dirty"
+       room_no.save()
     time.sleep(1)
     frappe.msgprint(f"Room Cleanig document created. {room_cleanig.name} has been Marked As dirty room please assign for cleaning ",[room_cleanig.name])
     return room_cleanig.name
@@ -140,8 +144,13 @@ THEN  1 ELSE  0 end """,as_dict=0)
                non_existing_so.append(i)
             else:
                 frappe.throw("Student <b>{0}</b> already Exists in Sales Book Item <b>{1}</b>".format(i,ma.name))   
-
-
+      
+    sales_book_itm= doc.sales_book_item
+    amount =0
+    for p in sales_book_itm:
+        amount = amount + p.amount
+        doc.total_charges=amount
+        
       
     
 
@@ -155,27 +164,34 @@ THEN  1 ELSE  0 end """,as_dict=0)
 
 @frappe.whitelist()
 def get_sales_order(doc):
-    #sales_order_list =[s.get('sales_order') for s in frappe.db.get_list("Sales Invoice Item", {'docstatus':1}, 'sales_order')]
-    
-    #print(sales_order_list)
-    #return sales_order_list if len(sales_order_list)>0 else 0
     doc =json.loads(doc)
-    sales_order_invoice=[i.name for i in frappe.db.sql(f""" select a.name from `tabSales Order` as a inner join `tabSales Invoice Item` as m inner join `tabSales Invoice` as p  where a.name=m.sales_order and p.customer='{doc.get("customer")}' """,as_dict=1)]
-   # print(sales_order_invoice)
-    for i in sales_order_invoice:
-        sales_invoice_not_md=[j.name for j in frappe.db.sql(f""" select name from `tabSales Order` where name != "{sales_order_invoice}" and customer='{doc.get("customer")}' """,as_dict=1)]
-       # print(sales_invoice_not_md)
-       
-        s1=set(sales_order_invoice)
-        s2=set(sales_invoice_not_md)
-        array=list(s2.difference(s1))
-        print(sales_invoice_not_md)
-        return array
-    #for j in frappe.db.sql(""" select name from `tabSales Order` """,as_dict=1):
+    sales_order_without_invoice_list=[]
+    date_range=frappe.db.get_value("Sales Order",{"name":doc.get("reservation")},['check_in_cf','check_out_cf'])
+    print("dt",date_range)
+    if date_range is not None:
+       sales_order=[i.name for i in frappe.db.sql(f""" select name from `tabSales Order` where check_in_cf and check_out_cf between "{date_range[0]}" and "{date_range[1]}" and contact_email='{doc.get("customer_email")}' """,as_dict=1)]
+       print(sales_order)
+       for so in sales_order:
+           sales_order_with_invoice=[i.sales_order for i in frappe.db.sql(f""" select sales_order from `tabSales Invoice Item` where sales_order="{so}" """,as_dict=1)]
+      
+           if so not in sales_order_with_invoice:
+              sales_order_without_invoice_list.append(so)
+    return sales_order_without_invoice_list
+            
+           
+@frappe.whitelist()               
+def room_master_status(doc):
+    doc =json.loads(doc)
+    if doc.get("room_no"):
+       room_no=frappe.get_doc("Room HMS",doc.get("room_no"))
+       room_no.status="Occupied"
+       room_no.save()
+           
+        
+
+         
     
-    #B=frappe.db.sql(f""" select m.sales_order from `tabSales Order`as S inner join `tabSales Invoice` as a inner join `tabSales Invoice Item` as m on m.parent=a.name where sales_order="{j.name}" """,as_dict=1)
-    #if not B:
-     #  return B
+
     
     
 @frappe.whitelist()

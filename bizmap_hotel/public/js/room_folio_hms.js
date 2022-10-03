@@ -5,6 +5,17 @@ frappe.ui.form.on('Room Folio HMS', {
         //frappe.set_route(["query-report", "Gross Profit"]);
         
     })
+    //-----------
+      //var sales_book_itm= frm.doc.sales_book_item
+      //var amount =0
+      //for(let i in sales_book_itm) {
+      //const iterator =  sales_book_itm[i]
+      //amount = amount + iterator.amount
+      //}
+      //console.log(amount)
+     // frm.set_value("total_charges",amount)
+    //-----------
+    
     if(frm.doc.docstatus==1){
          cur_frm.add_custom_button(__('Make Pyment'), function(){
               let payment = frappe.model.get_new_doc('Payment Entry')
@@ -58,6 +69,14 @@ frappe.ui.form.on('Room Folio HMS', {
         frm.set_value("status","Checked In")
         frm.save('Update')
         frm.refresh(); 
+        frappe.call({
+        method:"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_master_status",
+        args:{
+        "doc":frm.doc
+        }
+        
+        })
+        
      },__("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
      
  } 	

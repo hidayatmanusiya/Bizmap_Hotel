@@ -13,6 +13,7 @@
   "column_break_3",
   "company",
   "abbr",
+  "property",
   "status"
  ],
  "fields": [
@@ -66,10 +67,16 @@
    "fieldtype": "Link",
    "label": "Status",
    "options": "Room Status"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
   }
  ],
  "links": [],
- "modified": "2022-09-07 16:40:25.538989",
+ "modified": "2022-09-29 21:48:49.057576",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room HMS",

@@ -119,6 +119,9 @@ doc_events = {
 	},
     "Room Folio HMS":{
       "on_change":"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change"
+    },
+    "Room Cleaning":{
+       "before_submit":"bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
     }	
  }
 
@@ -127,7 +130,9 @@ doc_events = {
 scheduler_events = {
 	"cron": {
 		"* * * * *": [
-		"bizmap_hotel.utill.booking.insertbooking"
+		"bizmap_hotel.utill.booking.insertbooking",
+		"bizmap_hotel.utill.room.update_room"
+		
 		]
 	}
 }
