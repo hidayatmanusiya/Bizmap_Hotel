@@ -11,7 +11,8 @@ import re
 def insertbooking():
 
     company = frappe.defaults.get_user_default("Company")
-    abbr = frappe.db.sql("select abbr from `tabCompany` where company_name = %s", company)
+    abbr = frappe.db.sql(
+        "select abbr from `tabCompany` where company_name = %s", company)
     # frappe.msgprint(abbr)
 
     url = "https://live.ipms247.com/pmsinterface/pms_connectivity.php"
@@ -34,12 +35,14 @@ def insertbooking():
     if (response.status_code == 200):
         tr = response.json()
         # j = json.loads(json.dumps(tr))
-        unique_id_list = [{'unique_id': i['UniqueID']} for i in tr['Reservations']['Reservation']]
+        unique_id_list = [{'unique_id': i['UniqueID']}
+            for i in tr['Reservations']['Reservation']]
         for i in tr['Reservations']['Reservation']:
             unique_id_count_list = []
             for u in unique_id_list:
-                unique_id_count_dict, count = {},0
-                result = [r['SubBookingId'] for r in i['BookingTran'] if r['SubBookingId'].startswith(u['unique_id'])]
+                unique_id_count_dict, count = {}, 0
+                result = [r['SubBookingId'] for r in i['BookingTran']
+                    if r['SubBookingId'].startswith(u['unique_id'])]
                 if len(result) > 0:
                     room_count = len(result)
 
@@ -49,6 +52,15 @@ def insertbooking():
             for r in i['BookingTran']:
                 if r['SubBookingId'] == Uniq+"-"+num:
                     break
+                
+                tax_div = float(r['TotalTax'])/2
+                #Tax Variable
+                t_name = []
+                t_amount = []
+                CGST = "CGST"
+                count = 0
+            
+        
                 for t in r['RentalInfo']:
                     
                     adult = t['Adult']
@@ -94,7 +106,7 @@ def insertbooking():
                         
                     })
 
-                    #Mail   
+                    # Mail   
                     guest.append("email_ids",{
                                             'email_id':r['Email'],
                                             'is_primary':1,
@@ -102,14 +114,14 @@ def insertbooking():
                                             
                                 })
                     
-                    #Mobile Number                    
+                    # Mobile Number                    
                     guest.append("phone_nos",{
                                             'phone':r['Mobile'],
                                             'is_primary_mobile_no':1,
                                             
                                             
                                 })
-                    #Customer 
+                    # Customer 
                     guest.append("links",{
                                             'link_doctype':'Customer',
                                             'link_name':stagging.guest,
@@ -131,7 +143,7 @@ def insertbooking():
 
                
 
-                #Transaction Id Check
+                # Transaction Id Check
                 sales_order = frappe.get_list('Sales Order', fields=['transactionid'])
                 check = {'transactionid': stagging.transactionid}    
                 
@@ -164,13 +176,29 @@ def insertbooking():
                                             
                                         })
                     for t in r['TaxDeatil']:
+                        tax_name1 = t['TaxName']
+                        tax_amount1 = t['TaxAmount']
+                        if t['TaxName'] == "CGST":
+                            count += 1
+
+                        #Tax Amount
+                        if tax_amount1 not in t_amount:
+                            t_amount.append(tax_amount1)
+
+                        #Tax Name
+                        if tax_name1 not in t_name: 
+                            t_name.append(tax_name1)  
+
+                          
+                    for tax_name1 in t_name: 
+
                         sales_order_api.append("taxes",{
                                             'charge_type':"Actual",
-                                            'account_head':t['TaxName']+" "+"- "+tax_name,
+                                            'account_head':tax_name1+" "+"- "+tax_name,
                                             'rate':"0.00",
-                                            'tax_amount':t['TaxAmount'],
+                                            'tax_amount':tax_div,
                                             # "total": r['TotalAmountAfterTax'],
-                                            'description':t['TaxName']+" "+"- "+tax_name,
+                                            'description':tax_name1+" "+"- "+tax_name,
                                            
                                         })                    
 
@@ -180,3 +208,6 @@ def insertbooking():
 
     else:
         frappe.msgprint("Auth Wrong")
+
+
+

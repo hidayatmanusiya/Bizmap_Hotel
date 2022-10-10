@@ -16,7 +16,7 @@ def update_room():
         # First Data Update
         room_ty_0 = room_ty[0]
         room_ty_1=(','.join(room_ty_0))
-
+        
         room_av_0 = room_av[0]
         room_av_1 =(','.join(room_av_0))
 
