@@ -122,6 +122,9 @@ doc_events = {
     },
     "Room Cleaning":{
        "before_submit":"bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
+    },
+    "Sign In Sheet HMS":{
+        "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
     }	
  }
 

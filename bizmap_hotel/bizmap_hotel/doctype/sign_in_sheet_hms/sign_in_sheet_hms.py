@@ -14,14 +14,14 @@ class SignInSheetHMS(Document):
 	pass
 
 
-@frappe.whitelist()
-def fill_sign_sheet_name_to_room_folio(doc):
-    doc =json.loads(doc)
-    if doc.get('room_folio'):
-       existing_room_folio=frappe.get_doc('Room Folio HMS',doc.get('room_folio'))
+
+def before_submit(doc,method):
+    if doc.room_folio:
+       existing_room_folio=frappe.get_doc('Room Folio HMS',doc.room_folio)
        if existing_room_folio.sign_in_sheet is None:
-          existing_room_folio.sign_in_sheet=doc.get('name')
+          existing_room_folio.sign_in_sheet= doc.name
           existing_room_folio.save()
+          existing_room_folio.reload()
        else:
-           frappe.throw(existing_room_folio.name,"SigIn sheet alrady Exixt")    
+           frappe.throw(f"SigIn sheet alrady Exist in '{existing_room_folio.name}' ")    
        
