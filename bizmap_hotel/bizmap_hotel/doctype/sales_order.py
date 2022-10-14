@@ -89,32 +89,28 @@ def doc_mapped_to_for_multiple_room_folio(doc):
            New_room_folio.run_method('submit')
 
 
-def before_save(doc,method):
-   
-       #check_room_avablity
-    #occupied_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type)as m from `tabRoom Folio HMS` where check_out BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type='{doc.room_type_cf}'  And status="Checked Out" """, as_dict=1)]
-    #print("occupied_room",occupied_room)
-    total_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type) as m from `tabRoom HMS` where room_type="{doc.room_type_cf}"  """, as_dict=1)]
-    print("total_room",total_room)
-    avalible_room=[i.m for i in frappe.db.sql(f""" select  count(name) as m from `tabRoom HMS` where room_type="{doc.room_type_cf}" and status="Availabel" """, as_dict=1)]
-    print(avalible_room)
-    #avalible_room= total_room[0]- occupied_room[0]
-    #print("avalible_room",avalible_room)
-    occupied_booking_room_from_so=[0 if i.m is None else i.m for i in frappe.db.sql(f""" select SUM(number_of_room) as m from `tabSales Order` where check_out_cf  BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}"  and room_type_cf="{doc.room_type_cf}" And status!="Cancelled" """, as_dict=1)]
-    print("occupied_booking_room_from_so",occupied_booking_room_from_so)
-    if avalible_room[0]<=total_room[0]:
-       avalible_for_booking= avalible_room-occupied_booking_room_from_so[0]
-       print("avalible_for_booking",avalible_for_booking)
-       update_room_type=frappe.get_doc("Room Type HMS",doc.room_type_cf)
-       update_room_type.total_room=total_room[0]
-       update_room_type.available_room_= avalible_for_booking
-       update_room_type.save()
-
-    
+def before_submit(doc,method):
        
-      # A=frappe.db.sql(""" select a.name,a.paid_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="SAL-ORD-2022-00022" """,as_dict=1) 
+    #check_room_avablity
+    occupied_room_room_folio=[i.m for i in frappe.db.sql(f""" select COUNT(room_type)as m from `tabRoom Folio HMS` where check_out BETWEEN "{doc.check_in_cf}" AND "{doc.check_out_cf}" AND room_type='{doc.room_type_cf}'  And status="Checked Out" """, as_dict=1)]
+    print("occupied_room",occupied_room_room_folio)
+    total_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type) as m from `tabRoom HMS` where room_type="{doc.room_type_cf}" and  status!="Out Of Order"  """, as_dict=1)]
+    print("total_room",total_room)
+    
+  
+    occupied_booking_room_from_so=[0 if i.m  is None else i.m for i in frappe.db.sql(f""" select  SUM(number_of_room) as m from `tabSales Order`
+where check_in_cf  between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check_out_cf between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check_out_cf > "{doc.check_out_cf}" and room_type_cf="3534700000000000003" And status!="Cancelled" """, as_dict=1)]
 
+    if occupied_booking_room_from_so[0]<=total_room[0]:
+        avalible_room = total_room[0]- occupied_booking_room_from_so[0]
+        print("occupied_booking_room_from_so+++++++++++",occupied_booking_room_from_so)
+        update_room_type=frappe.get_doc("Room Type HMS",doc.room_type_cf)
+        update_room_type.total_room=total_room[0]
+        update_room_type.available_room_= avalible_room
+        update_room_type.save()
 
+    else:
+         frappe.throw("can't create more")   
     
        
 
