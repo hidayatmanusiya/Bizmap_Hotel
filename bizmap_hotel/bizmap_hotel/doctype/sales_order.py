@@ -30,12 +30,13 @@ def check_out_date(doc):
 @frappe.whitelist()
 def insert_items(doc):
     doc=json.loads(doc)
-    room_pakage=doc.get('room_package_cf')
-    no_of_night= float(doc.get('no_of_nights_cf')) * doc.get('number_of_room') 
-    check_in_date=doc.get('check_in_cf')
-    check_out_date = doc.get('check_out_cf')
-    room_package_description=frappe.db.get_value('Item',{'name':doc.get('room_package_cf')},['description','stock_uom'])
-    return room_pakage,no_of_night,check_in_date,check_out_date,room_package_description
+    if doc.get("no_of_nights_cf") and doc.get('number_of_room'):
+       room_pakage=doc.get('room_package_cf')
+       no_of_night= float(doc.get('no_of_nights_cf')) * doc.get('number_of_room') 
+       check_in_date=doc.get('check_in_cf')
+       check_out_date = doc.get('check_out_cf')
+       room_package_description=frappe.db.get_value('Item',{'name':doc.get('room_package_cf')},['description','stock_uom'])
+       return room_pakage,no_of_night,check_in_date,check_out_date,room_package_description
 
 @frappe.whitelist()
 def doc_mapped_to_room_folia(source_name, target_doc=None):
