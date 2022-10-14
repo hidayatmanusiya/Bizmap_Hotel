@@ -158,7 +158,7 @@ frappe.ui.form.on('Sales Order', {
            frm.set_value("reservation_notes_cf",r.reservation_notes_cf)
            frm.set_value("room_type_cf",r.room_type_cf)
            frm.set_value("room_package_cf",r.room_package_cf)
-           frm.set_value("number_of_room",r.number_of_room)
+           // frm.set_value("number_of_room",r.number_of_room)
            frm.set_value("room_rate_cf",r.room_rate_cf)
            frm.set_value("weekend_rate_cf",r.weekend_rate_cf)
            
