@@ -113,7 +113,7 @@ doc_events = {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method",
-               "before_save":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_save"
+               "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_submit"
 	},
     "Payment Entry":{
 	   "before_save":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_save"
@@ -125,6 +125,9 @@ doc_events = {
     },
     "Room Cleaning":{
        "before_submit":"bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
+    },
+    "Sign In Sheet HMS":{
+        "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
     }	
  }
 

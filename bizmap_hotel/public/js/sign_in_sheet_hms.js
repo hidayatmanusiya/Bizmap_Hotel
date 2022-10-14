@@ -34,23 +34,23 @@ frappe.ui.form.on("Sign In Sheet HMS", {
         });
 
     },
-    validate(frm){
-      var back_to_room_folio=frappe.db.get_value("Room Folio HMS",{'name':frm.doc.room_folio},'sign_in_sheet',(r) => {
-      if(r.sign_in_sheet!=null){
+    //validate(frm){
+      //var back_to_room_folio=frappe.db.get_value("Room Folio HMS",{'name':frm.doc.room_folio},'sign_in_sheet',(r) => {
+      //if(r.sign_in_sheet!=null){
        
-        frappe.throw(__("Sing Sheet for Room Folio '{0}' is alrady Existing  ",[frm.doc.room_folio]))
-         frm.set_value("room_folio","")
-              }
-      else{
-        frappe.call({
-        method:'bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.fill_sign_sheet_name_to_room_folio',
-        args:{
-             'doc':frm.doc
-            }
-        })
+        //frappe.throw(__("Sing Sheet for Room Folio '{0}' is alrady Existing  ",[frm.doc.room_folio]))
+         //frm.set_value("room_folio","")
+          //    }
+      //else{
+        //frappe.call({
+        //method:'bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.fill_sign_sheet_name_to_room_folio',
+       // args:{
+         //    'doc':frm.doc
+           // }
+       // })
            
-      }
-   })
+      //}
+//   })
 
-  }
+ // }
 });

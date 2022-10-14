@@ -132,7 +132,8 @@
   {
    "fieldname": "signature",
    "fieldtype": "Signature",
-   "label": "Signature"
+   "label": "Signature",
+   "reqd": 1
   },
   {
    "fetch_from": "guest.address",
@@ -169,7 +170,7 @@
   {
    "allow_on_submit": 1,
    "fieldname": "customer_mobile",
-   "fieldtype": "Int",
+   "fieldtype": "Data",
    "label": "Customer Mobile"
   },
   {
@@ -224,7 +225,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-09-06 14:07:47.468320",
+ "modified": "2022-10-09 20:28:55.305104",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
