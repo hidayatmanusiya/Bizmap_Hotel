@@ -134,7 +134,7 @@ def on_change(doc,method):
 )   
 THEN  1 ELSE  0 end """,as_dict=0)
     value=re.sub(r"[\([{,})\]]","",str(room_no))
-    if value == "0":
+    if value == "0" and doc.room_no:
        frappe.throw(f" '{doc.room_no}' is not belongs to room_type '{doc.room_type}' please select proper Room No ")
     non_existing_so=[] # from here to check duplicate so in booked sale tbl 
     for ma in frappe.get_all("Room Folio HMS",{"reservation":doc.reservation},"name"):
@@ -146,11 +146,15 @@ THEN  1 ELSE  0 end """,as_dict=0)
                 frappe.throw("Student <b>{0}</b> already Exists in Sales Book Item <b>{1}</b>".format(i,ma.name))   
       
     sales_book_itm= doc.sales_book_item
+    collected_payment = doc.collected_payment
+    collected_amount = 0
     amount =0
     for p in sales_book_itm:
         amount = amount + p.amount
         doc.total_charges=amount
-        
+    for collected in collected_payment:
+        collected_amount = collected_amount + collected.amount
+        doc.total_advance_paid =  collected_amount
       
     
 

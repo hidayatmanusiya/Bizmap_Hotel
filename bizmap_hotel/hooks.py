@@ -116,7 +116,7 @@ doc_events = {
                "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_submit"
 	},
     "Payment Entry":{
-	   "before_save":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_save"
+	   "before_submit":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_submit"
 	
 	
 	},

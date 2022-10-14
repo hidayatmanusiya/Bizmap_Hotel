@@ -4,9 +4,9 @@ import json
 
 
 
-def before_save(doc,method):
+def before_submit(doc,method):
     frappe.reload_doctype("Room Folio HMS") 
-    frappe.reload_doctype("Payment Entry Reference")
+    #frappe.reload_doctype("Collected  Payment")
     room_folio=frappe.db.get_value("Room Folio HMS",{"reservation":doc.room_folio_reference},"name")
     if room_folio:
        paymet_entry=frappe.db.sql(f""" select a.name,a.paid_amount,a.posting_date from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name="{doc.room_folio_reference}" """,as_dict=1)
@@ -21,6 +21,8 @@ def before_save(doc,method):
             #room_folio_payment.insert()
             room_folio_payment.run_method('submit')
             #room_folio_payment.reload()
+            #frappe.reload_doctype("Collected  Payment")
+            frappe.reload_doctype("Room Folio HMS")
        
        
        
