@@ -115,11 +115,11 @@ doc_events = {
 # 		"on_trash": "method",
                "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_submit"
 	},
-    "Payment Entry":{
-	   "before_submit":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_submit"
+   # "Payment Entry":{
+	#   "before_submit":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_submit"
 	
 	
-	},
+	#},
     "Room Folio HMS":{
       "on_change":"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change"
     },

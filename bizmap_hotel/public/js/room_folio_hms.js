@@ -5,16 +5,6 @@ frappe.ui.form.on('Room Folio HMS', {
         //frappe.set_route(["query-report", "Gross Profit"]);
         
     })
-    //-----------
-      //var sales_book_itm= frm.doc.sales_book_item
-      //var amount =0
-      //for(let i in sales_book_itm) {
-      //const iterator =  sales_book_itm[i]
-      //amount = amount + iterator.amount
-      //}
-      //console.log(amount)
-     // frm.set_value("total_charges",amount)
-    //-----------
     
     if(frm.doc.docstatus==1){
          cur_frm.add_custom_button(__('Make Pyment'), function(){
@@ -100,7 +90,10 @@ frappe.ui.form.on('Room Folio HMS', {
       
   
      },__("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});	
-  }		
+      }
+      total_charges(frm)
+      advance_against_reservation(frm)
+      outstanding_charges(frm)		
     },
     check_out(frm){
        
@@ -131,6 +124,7 @@ frappe.ui.form.on('Room Folio HMS', {
  
  },
  onload:function(frm){
+    
     let value = frappe.db.get_value('Sales Order',{'name':frm.doc.reservation},['transaction_date','grand_total'],(r) =>{
     if (frm.doc.reservation!=null){
        frappe.call({
@@ -172,6 +166,7 @@ frappe.ui.form.on('Room Folio HMS', {
     
  },
  setup(frm){
+   
     frm.set_query("room_no", function() {
 	return {
 	query: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_no_fltr',
@@ -214,6 +209,37 @@ frappe.ui.form.on('Sales Book Item',"sales_order",function(frm,cdt,cdn){
 
    // });
 //});
+function total_charges(frm){
+    
+    
+      var sales_book_itm= frm.doc.sales_book_item
+      var amount =0
+      for(let i in sales_book_itm) {
+      const iterator =  sales_book_itm[i]
+      amount = amount + iterator.amount
+      }
+      //console.log(amount)
+     frm.set_value("total_charges",amount)
+      //frm.save('Update')
+     // field.refresh("total_charges");
+    
 
+}
+function advance_against_reservation(frm){
 
+   var collected_payment = frm.doc.collected_payment
+   var collected_amount = 0
+   for(let i in collected_payment){
+      const iterator =collected_payment[i]
+     collected_amount = collected_amount + iterator.amount
+   }
+   console.log("total_advance_paid")
+   frm.set_value("total_advance_paid",collected_amount)
+}
 
+function outstanding_charges(frm){
+ if(frm.doc.total_charges && frm.doc.total_advance_paid){
+     var outstanding_charges = frm.doc.total_charges -frm.doc.total_advance_paid
+     frm.set_value("outstanding_charges",outstanding_charges)
+    }
+}

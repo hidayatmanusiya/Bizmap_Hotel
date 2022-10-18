@@ -48,8 +48,10 @@ def room_folio_sales_invoice(source_name, target_doc=None):
             "doctype": "Sales Invoice",
             "field_map": {
                 "name": "room_folio_ref",
-                "customer":"customer"
+                "customer":"customer",
                  #"name":"room_folio"
+                "total_advance_paid":"total_advance",
+                "outstanding_charges":"outstanding_amount"
                 
               
             },
@@ -145,16 +147,16 @@ THEN  1 ELSE  0 end """,as_dict=0)
             else:
                 frappe.throw("Student <b>{0}</b> already Exists in Sales Book Item <b>{1}</b>".format(i,ma.name))   
       
-    sales_book_itm= doc.sales_book_item
-    collected_payment = doc.collected_payment
-    collected_amount = 0
-    amount =0
-    for p in sales_book_itm:
-        amount = amount + p.amount
-        doc.total_charges=amount
-    for collected in collected_payment:
-        collected_amount = collected_amount + collected.amount
-        doc.total_advance_paid =  collected_amount
+    #sales_book_itm= doc.sales_book_item
+    #collected_payment = doc.collected_payment
+    #collected_amount = 0
+    #amount =0
+    #for p in sales_book_itm:
+     #   amount = amount + p.amount
+      #  doc.total_charges=amount
+    #for collected in collected_payment:
+       # collected_amount = collected_amount + collected.amount
+        #doc.total_advance_paid =  collected_amount
       
     
 

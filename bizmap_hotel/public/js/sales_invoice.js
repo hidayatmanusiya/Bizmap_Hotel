@@ -3,6 +3,7 @@ var company =[]
 frappe.ui.form.on('Sales Invoice', {
       
 	refresh(frm) {
+
 	if(frm.doc.room_folio_ref){
 	  var Room_Folio = frm.doc.room_folio_ref
 	  room_ref_no.push(Room_Folio)

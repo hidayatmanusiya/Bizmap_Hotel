@@ -45,7 +45,15 @@ frappe.ui.form.on('Payment Entry', {
         Refchild.outstanding_amount= Amount[0]
         Refchild.allocated_amount=Amount[0]
 
-   }
+   },
+   before_save(frm){
+   frappe.call({
+      method:"bizmap_hotel.bizmap_hotel.doctype.payment_entry.payment_entry_in_collection_pymt_room_folio",
+      args:{
+        'doc':frm.doc,
+      }
+   })
+  }
   
   
 	
