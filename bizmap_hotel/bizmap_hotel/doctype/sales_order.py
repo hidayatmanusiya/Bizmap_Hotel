@@ -97,11 +97,9 @@ def before_submit(doc,method):
     print("occupied_room",occupied_room_room_folio)
     total_room=[i.m for i in frappe.db.sql(f""" select COUNT(room_type) as m from `tabRoom HMS` where room_type="{doc.room_type_cf}" and  status!="Out Of Order"  """, as_dict=1)]
     print("total_room",total_room)
-    
-  
     occupied_booking_room_from_so=[0 if i.m  is None else i.m for i in frappe.db.sql(f""" select  SUM(number_of_room) as m from `tabSales Order`
-where check_in_cf  between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check_out_cf between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check_out_cf > "{doc.check_out_cf}" and room_type_cf="3534700000000000003" And status!="Cancelled" """, as_dict=1)]
-
+where room_type_cf="{doc.room_type_cf}" And docstatus!=2 and check_in_cf  between "{doc.check_in_cf}" and "{doc.check_out_cf}" or room_type_cf="{doc.room_type_cf}" And docstatus!=2 and check_out_cf between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check_out_cf > "{doc.check_out_cf}" and room_type_cf="{doc.room_type_cf}" And docstatus!=2 """, as_dict=1)]
+  
     if occupied_booking_room_from_so[0]<=total_room[0]:
         avalible_room = total_room[0]- occupied_booking_room_from_so[0]
         print("occupied_booking_room_from_so+++++++++++",occupied_booking_room_from_so)
@@ -111,7 +109,10 @@ where check_in_cf  between "{doc.check_in_cf}" and "{doc.check_out_cf}" or check
         update_room_type.save()
 
     else:
-         frappe.throw("can't create more")   
+         frappe.throw(f"Booking In Room Type {doc.room_type_cf} for date {doc.check_in_cf} is alrady full.Please try for different Date or Room Type")
+        
+         
+            
     
        
 
