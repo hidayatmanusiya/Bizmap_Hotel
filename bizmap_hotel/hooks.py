@@ -44,7 +44,8 @@ doctype_js = {
 }
 doctype_list_js = {
 	"Room Folio HMS" : "public/js/room_folio_hms_list.js",
-	"Sales Order" : "public/js/sales_order_list.js"
+	"Sales Order" : "public/js/sales_order_list.js",
+    "Room Type HMS" : "public/js/room_type_hms_list.js"
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -140,7 +141,9 @@ scheduler_events = {
 	"cron": {
 		"* * * * *": [
 		"bizmap_hotel.utill.booking.insertbooking",
-		"bizmap_hotel.utill.room.update_room"
+		"bizmap_hotel.utill.room.update_room",
+        "bizmap_hotel.utill.booking_staah.insertbooking",
+        "bizmap_hotel.utill.room_staah.update_room"
 		
 		]
 	}
