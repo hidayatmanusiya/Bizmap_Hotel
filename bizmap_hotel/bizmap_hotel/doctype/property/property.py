@@ -12,8 +12,8 @@ def get_adresss(doc):
     doc = json.loads(doc)
     if doc.get("address"):
        address=frappe.db.get_value("Address",{"name":doc.get("address")},["address_type","address_line1","address_line2","city","pincode","state","country"])
-       Address_list=' '.join(i for i in address if i not in ' ')
-       #print("+++++++",Address_list)
+       Address_list=' '.join(i for i in address if i is not None)
+       #Address_list=' '.join(i for i in address if i not in ' ')
        return Address_list    	
        
        

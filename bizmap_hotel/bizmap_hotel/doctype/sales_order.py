@@ -113,8 +113,16 @@ where room_type_cf="{doc.room_type_cf}" And docstatus!=2 and check_in_cf  betwee
         
          
             
-    
-       
+@frappe.whitelist()	       
+def get_name_mobile_emalil_frm_contact(doc):
+    doc = json.loads(doc)
+    if doc.get("guest_cf"):
+       get_phone=[i.phone for i in frappe.db.sql(f""" select phone from `tabContact Phone` where parent="{doc.get("guest_cf")}" """,as_dict=1)]
+       get_email= [i.email_id for i in frappe.db.sql(f""" select email_id from `tabContact Email` where parent="{doc.get("guest_cf")}" """,as_dict=1)]
+       contact_name=frappe.db.get_value("Contact",{"name":doc.get("guest_cf")},"name")
+       contact_full_name=frappe.db.get_value("Contact",{"name":doc.get("guest_cf")},["first_name","last_name"])
+       contact_list=' '.join(i for i in contact_full_name if i is not None)
+       return  get_phone,get_email,contact_list,contact_name
 
  
  

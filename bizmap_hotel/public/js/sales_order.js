@@ -164,6 +164,21 @@ frappe.ui.form.on('Sales Order', {
            
          })
        }
-    }
-     
+    },
+     guest_cf:function(frm){
+      frappe.call({
+        method: 'bizmap_hotel.bizmap_hotel.doctype.sales_order.get_name_mobile_emalil_frm_contact',
+        args: {
+        'doc':frm.doc
+             },
+         callback: function(r){
+              
+                frm.set_value("contact_email",r.message[1])
+                frm.set_value("contact_mobile",r.message[0])
+                frm.set_value("contact_display",r.message[2])
+                frm.set_value("contact_person",r.message[3])
+                
+            }
+         })
+     }
   }) 
