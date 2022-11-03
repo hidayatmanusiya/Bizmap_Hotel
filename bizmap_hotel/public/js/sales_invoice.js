@@ -78,7 +78,7 @@ frappe.ui.form.on('Sales Invoice', {
          },
         callback:function(r){
           console.log("--++--++",r)
-          for (let i =0; i<r.message.length;i++) {
+          for (let i =0; i<r.message.length;i++){
            for(let j=0; j<[i].length;j++){
             
             var childTable_taxes = cur_frm.add_child("taxes");

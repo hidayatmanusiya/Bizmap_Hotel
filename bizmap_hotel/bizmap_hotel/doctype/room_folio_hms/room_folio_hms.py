@@ -99,7 +99,8 @@ def checkout_minus_checkin_days_diffrence(doc):
            return 1
         return (checkout_formate-checkin_formate).days
     
-        
+#It returnig Sales order Customer, Guest and Total Amount and inserting in Pyment Entry Form 
+#js Written in pyment_entry.js from to insert in form
 @frappe.whitelist()    
 def payment_entry(doc):
     doc=json.loads(doc)

@@ -92,10 +92,12 @@ check_out(frm){
            'doc':frm.doc
           },
 	async: false,
-       callback: function(r) {
+       callback: function(r){
+           if(r.message){     
              frm.set_value("quantity",r.message)
-           }
-      });
+            } 
+        }
+    });
 },
  after_save(frm){
    if(frm.doc.sign_in_sheet==null){
