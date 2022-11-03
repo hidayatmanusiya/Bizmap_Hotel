@@ -172,12 +172,13 @@ frappe.ui.form.on('Sales Order', {
         'doc':frm.doc
              },
          callback: function(r){
-              
-                frm.set_value("contact_email",r.message[1])
-                frm.set_value("contact_mobile",r.message[0])
-                frm.set_value("contact_display",r.message[2])
-                frm.set_value("contact_person",r.message[3])
+                if(r.message){
+                frm.set_value("contact_email",r.message.email_id)
+                frm.set_value("contact_mobile",r.message.phone)
+                frm.set_value("contact_display",r.message.full_name)
+                frm.set_value("contact_person",r.message.name)
                 
+              }
             }
          })
      }

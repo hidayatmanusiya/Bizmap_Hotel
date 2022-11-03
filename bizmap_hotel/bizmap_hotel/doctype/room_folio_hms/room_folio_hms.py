@@ -72,19 +72,23 @@ def sales_order_item_transfer_to_sales_invoice(room_folio_ref):
            sales_order_child_itm.append(sales_order_itm)
     return sales_order_child_itm
 
+
+#from sales tax and Charges child table from sales order fetch value in sales tax and Charges in sale invoice 
+#js code is on sales_invoice.js 
 @frappe.whitelist()
 def sales_order_sale_tax_to_sales_invoice_sale_tax(room_folio_ref):
     sales_txt=[]
     if room_folio_ref:
-       sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{room_folio_ref}' """,as_dict=1)]
+       sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{room_folio_ref}' """,as_dict=1)] #here it take  sales order from room folio sales book itm table.
        
        for i in sales_order_ref:
-           sales_tx_charges=frappe.db.sql(f""" select charge_type,account_head,rate from `tabSales Taxes and Charges` where parent ="{i}" """,as_dict=1)
+           sales_tx_charges=frappe.db.sql(f""" select charge_type,account_head,rate from `tabSales Taxes and Charges` where parent ="{i}" """,as_dict=1) # it getting all info of  sale order from above list
            sales_txt.append(sales_tx_charges)
     return  sales_txt          
     
     
-    
+#getting diffrence between check-in and check-out date on room folio check-out btn or extending or reducing check-out dates
+#In check-out field on room_folio_hms    
 @frappe.whitelist()    
 def checkout_minus_checkin_days_diffrence(doc):
     doc = json.loads(doc)
