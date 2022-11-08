@@ -123,7 +123,8 @@
   {
    "fieldname": "id_proof",
    "fieldtype": "Attach",
-   "label": "Id proof"
+   "label": "Id proof",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_16",
@@ -225,7 +226,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-09 20:28:55.305104",
+ "modified": "2022-11-07 16:37:34.856653",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Sign In Sheet HMS",
