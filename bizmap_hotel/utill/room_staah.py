@@ -10,9 +10,11 @@ from requests.structures import CaseInsensitiveDict
 def update_room():
 
         # r = room
-        room_ty = frappe.db.sql("select room_type_code from `tabRoom Type HMS`")
-        room_av = frappe.db.sql("select room_availability from `tabRoom Type HMS`")
+        room_ty = frappe.db.sql("select rth.room_type_code from `tabRoom Type HMS` rth LEFT JOIN `tabProperty Child table` pct on pct.parent = rth.name where pct.property_name = 'Silver Palace'")
+        room_av = frappe.db.sql("select rth.available_room_ from `tabRoom Type HMS` rth LEFT JOIN `tabProperty Child table` pct on pct.parent = rth.name where pct.property_name = 'Silver Palace'")
 
+        frappe.msgprint(room_av)
+        
         # First Data Update
         room_ty_0 = room_ty[0]
         room_ty_1=(','.join(room_ty_0))
@@ -36,20 +38,17 @@ def update_room():
         headers["Authorization"] = "Basic bzZVZndCVW86bnN5S05nZ1Y"
         headers["Content-Type"] = "application/json"
 
-        data = {    
-        
+        data = {
                 "hotelid": "SP-1011",
                 "room": [{
                         "roomid": room_ty_1,
-                        "date": [{
-                        "from": f"{date}",
-                        "to": f"{date}",
-                        "roomstosell": room_av_1
-                        
+                                "date": [{
+                                "from": date,
+                                "to": date,
+                                "roomstosell": room_av_1 
+                                }]
                         }]
-                }]
-        
-        }
+                }       
 
         # data = json.dumps(data)
         # frappe.msgprint(data)
