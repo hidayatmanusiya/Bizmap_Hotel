@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{room_no}-{abbr}",
+ "autoname": "format:{room_no}",
  "creation": "2022-07-18 18:07:56.495869",
  "description": "Room Master for HMS",
  "doctype": "DocType",
@@ -76,7 +76,7 @@
   }
  ],
  "links": [],
- "modified": "2022-09-29 21:48:49.057576",
+ "modified": "2022-11-07 16:15:32.939360",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room HMS",
