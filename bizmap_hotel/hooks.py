@@ -129,7 +129,10 @@ doc_events = {
     },
     "Sign In Sheet HMS":{
         "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
-    }	
+    },
+    "Room HMS":{
+        "validate":"bizmap_hotel.bizmap_hotel.doctype.room_hms.room_hms.validate"
+    }
  }
 
 # Scheduled Tasks

@@ -203,7 +203,7 @@ def insertbooking():
                                         })                    
 
                     sales_order_api.insert() 
-                    sales_order_api.submit() 
+                    sales_order_api.save() 
                     # frappe.msgprint("Data Inserted Successfully")
 
     else:

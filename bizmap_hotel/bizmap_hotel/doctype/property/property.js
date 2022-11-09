@@ -31,8 +31,10 @@ frappe.ui.form.on('Property', {
                "doc":frm.doc
               },
               callback: function(r){
-                frm.set_value("moblle_no",r.message[0])
-                frm.set_value("email_id",r.message[1])
+                if(r.message){
+                frm.set_value("moblle_no",r.message.phone)
+                frm.set_value("email_id",r.message.email_id)
+                }
               }
            })
  

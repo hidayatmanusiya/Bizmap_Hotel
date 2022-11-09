@@ -14,7 +14,7 @@ def before_submit(doc,method):
     if doc.room_no:
        room_no=frappe.get_doc("Room HMS",doc.get("room_no"))
        room_no.status="Availabel"
-       room_no.save()	
+       room_no.db_update()	
        
 @frappe.whitelist()
 def room_no_fltr(doctype, txt, searchfield, start, page_len, filters):
