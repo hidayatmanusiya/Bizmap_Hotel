@@ -48,6 +48,7 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
             "field_map": {  
                 "name": "reservation",
                 "customer":"customer",
+                "guest_cf":"guest",
                 "reservation_notes_cf":"reservation_notes",
                 "room_type_cf":"room_type",
                 "room_no_cf":"room_no",

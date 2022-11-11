@@ -6,23 +6,72 @@ frappe.ui.form.on('Room Folio HMS', {
     
     if(frm.doc.docstatus==1){
               cur_frm.add_custom_button(__('Make Pyment'), function(){
-                      let payment = frappe.model.get_new_doc('Payment Entry')
-                      payment.naming_series='ACC-PAY-.YYYY.-'
-                      payment.payment_type='Receive'
-                      payment.party_type='Customer'
-                      payment.posting_date=frappe.datetime.nowdate()
-                      payment.room_folio_reference=frm.doc.reservation
-                          frappe.db.get_list('Company', {
-                                fields: ['default_bank_account'],
-                                filters: {
-                                'name': frm.doc.company
-                                 }
-                              }).then(function(Default_Bank){
-                              if(Default_Bank[0]){
-                                payment.paid_to=Default_Bank[0].default_bank_account
-                             }
-                       });
-              frappe.set_route("Form", payment.doctype, payment.name);
+              
+              
+                frappe.call({ 
+                  method:'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.payment_entry_from_room_folio',
+                  args:{
+                     'doc':frm.doc,
+                  },
+                 callback:function(r){
+                   console.log(r)
+                   if(r.message){
+                    frappe.set_route("Form", "Payment Entry",r.message)
+                   }
+                 } 
+                })
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              //------------------------------------------------------------------
+                      //let payment = frappe.model.get_new_doc('Payment Entry')
+                      //payment.naming_series='ACC-PAY-.YYYY.-'
+                      //payment.payment_type='Receive'
+                      //payment.party_type='Customer'
+                      //payment.party=frm.doc.customer
+                      //payment.contact_person=frm.doc.guest
+                      //payment.posting_date=frappe.datetime.nowdate()
+                      //payment.room_folio_reference=frm.doc.name
+                      
+                      
+                        //  frappe.db.get_list('Company', {
+                        //        fields: ['default_bank_account'],
+                        //        filters: {
+                        //        'name': frm.doc.company
+                        //         }
+                        //      }).then(function(Default_Bank){
+                        //      if(Default_Bank[0]){
+                        //        payment.paid_to=Default_Bank[0].default_bank_account
+                        //     }
+                      // });
+                      // payment.party=frm.doc.customer
+                      // payment.contact_person=frm.doc.guest
+                      // frappe.call({
+                  // method:'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.payment_entry',
+                  // args:{
+                  // 'doc':frm.doc,
+                 // },
+                // callback:function(r){
+                //   for (let i =0; i<r.message.length;i++) {
+                //      for(let j=0; j<[i].length;j++){
+                   // console.log("jhjhj",r.message[i][j].name)
+                //     cur_frm.refresh();
+                //     var Refchild=cur_frm.add_child("references")
+                //     Refchild.reference_doctype="Sales Order"
+                //     Refchild.reference_name= r.message[i][j].name
+                //     }
+                //   }
+                  //console.log("r+++++",r)
+             // }
+        // })
+                       
+             // frappe.set_route("Form", payment.doctype, payment.name);
    }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
 } 
   if(frm.doc.sign_in_sheet==null && frm.doc.docstatus==1 && frm.doc.status=="Pre-Check In" ){ 

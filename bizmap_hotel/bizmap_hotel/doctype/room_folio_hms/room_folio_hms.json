@@ -10,6 +10,7 @@
   "naming_series",
   "reservation",
   "customer",
+  "guest",
   "master_folio",
   "customer_email",
   "customer_mobile",
@@ -352,11 +353,16 @@
    "label": "Property",
    "options": "Property",
    "reqd": 1
+  },
+  {
+   "fieldname": "guest",
+   "fieldtype": "Data",
+   "label": "Guest"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-18 19:25:13.701297",
+ "modified": "2022-11-05 15:41:44.117618",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Folio HMS",

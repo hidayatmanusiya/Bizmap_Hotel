@@ -108,8 +108,13 @@ def checkout_minus_checkin_days_diffrence(doc):
 @frappe.whitelist()    
 def payment_entry(doc):
     doc=json.loads(doc)
-    get_value_frm_sale_order =frappe.db.sql(f""" select name,customer,guest_cf,total from `tabSales Order` where name='{doc.get('room_folio_reference')}' """,as_dict=0)
-    return get_value_frm_sale_order
+    sale_order_value=[]
+    sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{doc.get('name')}' """,as_dict=1)]
+    for i in sales_order_ref:
+        get_value_frm_sale_order =frappe.db.sql(f""" select name,customer,guest_cf,grand_total from `tabSales Order` where name="{i}" """,as_dict=1)
+        sale_order_value.append(get_value_frm_sale_order)
+    print(sale_order_value)
+    return sale_order_value
 
 
     
@@ -150,6 +155,46 @@ THEN  1 ELSE  0 end """,as_dict=0) #to avoid pasting diffrent room no from diffr
             else:
                 frappe.throw("Sales Order <b>{0}</b> already Exists in Sales Book Item Remove Duplicate from table <b>{1}</b>".format(i,ma.name))   
       
+    
+@frappe.whitelist()
+def payment_entry_from_room_folio(doc):
+    doc=json.loads(doc)
+    Pyment_Entry = frappe.new_doc("Payment Entry")
+    Pyment_Entry.payment_type='Receive'
+    Pyment_Entry.naming_series='ACC-PAY-.YYYY.-'
+    Pyment_Entry.room_folio_reference= doc.get("name")
+    Pyment_Entry.party_type='Customer'
+    #Pyment_Entry.posting_date=frappe.datetime.nowdate()
+    Pyment_Entry.party=doc.get("customer")
+    Pyment_Entry.contact_person=doc.get("guest")
+    Pyment_Entry.received_amount="  "
+    #Pyment_Entry.target_exchange_rate=1.0
+    Pyment_Entry.paid_to = frappe.db.get_value("Company",{"name":doc.get("company")},"default_bank_account")
+    Pyment_Entry.paid_amount = doc.get("total_charges")
+    Pyment_Entry.reference_no="    "
+    Pyment_Entry.reference_date= frappe.utils.nowdate()
+    Pyment_Entry.references=[]
+    if doc.get("sales_book_item"):
+       for i in [i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{doc.get('name')}' """,as_dict=1)]:
+           get_value_frm_sale_order =frappe.db.sql(f""" select name,customer,guest_cf,grand_total from `tabSales Order` where name="{i}" """,as_dict=1)
+           for so in get_value_frm_sale_order:
+                        
+               pay_ref =Pyment_Entry.append('references',{})
+               pay_ref.reference_doctype = "Sales Order"
+               pay_ref.reference_name = so.name
+               pay_ref.total_amount = so.grand_total
+               pay_ref.outstanding_amount = so.grand_total
+               pay_ref.allocated_amount = so.grand_total
+    
+    Pyment_Entry.insert(
+             ignore_permissions=True,
+             ignore_links=True,
+             ignore_if_duplicate=True,
+             ignore_mandatory=True
+    )
+    return Pyment_Entry.name
+    
+
 
 
 
