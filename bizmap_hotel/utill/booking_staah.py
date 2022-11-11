@@ -13,6 +13,11 @@ def insertbooking():
     company = frappe.defaults.get_user_default("Company")
     abbr = frappe.db.sql(
         "select abbr from `tabCompany` where company_name = %s", company)
+    abbr=str(abbr)
+    abbr=abbr.replace("(","")
+    abbr=abbr.replace(")","")
+    abbr=abbr.replace(",","")
+    abbr=abbr.replace("'","")
     # frappe.msgprint(abbr)
 
     url = "https://kiviosandbox.staah.net/SUAPI/jservice/Reservation"
@@ -36,8 +41,10 @@ def insertbooking():
                             #Sum Child and Adult - No Of Guest
                             child = c['numberofchildren']
                             adult = c['numberofadults']
-                            no_of_guest = int(child) + int(adult)
-
+                            no_of_guest = (child) + (adult)
+                            # frappe.msgprint(no_of_guest)
+                            
+                      
 
                             result_room = [r['id'] for r in tr['reservations']]
                             if len(result_room) > 0:
@@ -63,7 +70,6 @@ def insertbooking():
                                 guest = frappe.get_doc({
                                     "doctype": "Contact",
                                     "first_name": c['guest_name'],
-                                    # "last_name": c['last_name'],
                                     "gender":"Male"
                                     
                                 })
@@ -115,7 +121,7 @@ def insertbooking():
                                     "no_of_nights_cf": a['nights'],
                                     "check_out_cf": c['departure_date'],
                                     "no_of_guest_cf": no_of_guest,
-                                    "room_type_cf":"1000202",
+                                    "room_type_cf":c['id'],
                                     "room_package_cf":m['mealplan'],
                                     "number_of_room": room_count, 
                                     # "room_rate_cf": r['totalbeforetax'],    
@@ -134,10 +140,10 @@ def insertbooking():
 
                                 sales_order_api.append("taxes",{
                                             'charge_type':"Actual",
-                                            'account_head':"TAX 18% - BH",
+                                            'account_head':"TAX 18% - "+abbr,
                                             'rate':"0.00",
                                             'tax_amount':c['totaltax'],
-                                            'description':"TAX 18% - BH",
+                                            'description':"TAX 18% - "+abbr,
                                            
                                         })             
 
