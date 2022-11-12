@@ -15,7 +15,7 @@ from frappe.model.mapper import get_mapped_doc
 
 
 
-
+#after selecting check in date and intering number of night it calcuulate check out date Autometically on Sales Order
 @frappe.whitelist()
 def check_out_date(doc):
     doc=json.loads(doc)
@@ -26,7 +26,7 @@ def check_out_date(doc):
        checkOutdate = checkInformate + relativedelta(days=(int(doc.get('no_of_nights_cf'))))
        return checkOutdate.date()
 
-
+#inserting item table on sale order
 @frappe.whitelist()
 def insert_items(doc):
     doc=json.loads(doc)
@@ -37,7 +37,7 @@ def insert_items(doc):
        check_out_date = doc.get('check_out_cf')
        room_package_description=frappe.db.get_value('Item',{'name':doc.get('room_package_cf')},['description','stock_uom'])
        return room_pakage,no_of_night,check_in_date,check_out_date,room_package_description
-
+#mapping info from sales order to room folio
 @frappe.whitelist()
 def doc_mapped_to_room_folia(source_name, target_doc=None):
     #print(doc.name)
@@ -52,6 +52,7 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
                 "reservation_notes_cf":"reservation_notes",
                 "room_type_cf":"room_type",
                 "room_no_cf":"room_no",
+                "property":"property",
                 "room_package_cf":"room_package",
                 "check_out_cf":"check_out",
                 "no_of_nights_cf":"quantity",
@@ -64,7 +65,7 @@ def doc_mapped_to_room_folia(source_name, target_doc=None):
            }, target_doc)
       
     return target_doc
-
+#creating multiple room folio on after entering number of room more then 1
 @frappe.whitelist()
 def doc_mapped_to_for_multiple_room_folio(doc):
     doc =json.loads(doc)
@@ -90,7 +91,7 @@ def doc_mapped_to_for_multiple_room_folio(doc):
             )
            New_room_folio.run_method('submit')
 
-
+#it's check Avaliblity of room on booking date if room is not avalible on paticular booking date it will throw msg
 def before_submit(doc,method):
        
     #check_room_avablity
@@ -113,7 +114,7 @@ where room_type_cf="{doc.room_type_cf}" And docstatus!=2 and check_in_cf  betwee
          frappe.throw(f"Booking In Room Type {doc.room_type_cf} for date {doc.check_in_cf} is alrady full.Please try for different Date or Room Type")
         
          
-            
+#getting contact details of guest and filling in sales order doctype            
 @frappe.whitelist()	       
 def get_name_mobile_emalil_frm_contact(doc):
     doc = json.loads(doc)

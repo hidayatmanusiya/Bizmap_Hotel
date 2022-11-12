@@ -21,57 +21,6 @@ frappe.ui.form.on('Room Folio HMS', {
                  } 
                 })
               
-              
-              
-              
-              
-              
-              
-              
-              
-              //------------------------------------------------------------------
-                      //let payment = frappe.model.get_new_doc('Payment Entry')
-                      //payment.naming_series='ACC-PAY-.YYYY.-'
-                      //payment.payment_type='Receive'
-                      //payment.party_type='Customer'
-                      //payment.party=frm.doc.customer
-                      //payment.contact_person=frm.doc.guest
-                      //payment.posting_date=frappe.datetime.nowdate()
-                      //payment.room_folio_reference=frm.doc.name
-                      
-                      
-                        //  frappe.db.get_list('Company', {
-                        //        fields: ['default_bank_account'],
-                        //        filters: {
-                        //        'name': frm.doc.company
-                        //         }
-                        //      }).then(function(Default_Bank){
-                        //      if(Default_Bank[0]){
-                        //        payment.paid_to=Default_Bank[0].default_bank_account
-                        //     }
-                      // });
-                      // payment.party=frm.doc.customer
-                      // payment.contact_person=frm.doc.guest
-                      // frappe.call({
-                  // method:'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.payment_entry',
-                  // args:{
-                  // 'doc':frm.doc,
-                 // },
-                // callback:function(r){
-                //   for (let i =0; i<r.message.length;i++) {
-                //      for(let j=0; j<[i].length;j++){
-                   // console.log("jhjhj",r.message[i][j].name)
-                //     cur_frm.refresh();
-                //     var Refchild=cur_frm.add_child("references")
-                //     Refchild.reference_doctype="Sales Order"
-                //     Refchild.reference_name= r.message[i][j].name
-                //     }
-                //   }
-                  //console.log("r+++++",r)
-             // }
-        // })
-                       
-             // frappe.set_route("Form", payment.doctype, payment.name);
    }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
 } 
   if(frm.doc.sign_in_sheet==null && frm.doc.docstatus==1 && frm.doc.status=="Pre-Check In" ){ 
@@ -86,18 +35,26 @@ frappe.ui.form.on('Room Folio HMS', {
  } 
   if(frm.doc.docstatus==1 && frm.doc.status=="Checked In"){
            frm.add_custom_button(__('Sales Invoice'), function(){
-               var sales_invoice =frappe.db.get_value("Sales Invoice",{'room_folio':frm.doc.name},'room_folio',(r) => {
-                   if(frm.doc.name!=r.room_folio){
-                       frappe.model.open_mapped_doc({
-	                 method: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_folio_sales_invoice',
-	                 frm:cur_frm
-	                 });    
-	              }
-	           else{
-	              frappe.throw(__("Sales Invoice for Room Folio '{0}' is alrady existing  ",[frm.doc.name]))
-	           } 
-	       })   
-           }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
+           sales_invoice =frappe.db.get_value("Sales Invoice",{'room_folio':frm.doc.name},'room_folio',(r) => {
+           if(frm.doc.name!=r.room_folio){
+              frappe.call({
+      method:"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.sales_order_item_transfer_to_sales_invoice" ,
+       args :{
+          "doc":frm.doc
+           },
+      callback:function(r){
+           if(r.message){
+             frappe.set_route("Form", "Sales Invoice",r.message)
+                 }
+                }     
+              })
+            }
+           else{
+              frappe.throw(__("Sales Invoice for Room Folio '{0}' is alrady existing  ",[frm.doc.name]))
+            } 
+          }) 
+               
+      }, __("Action")).css({'background-color': 'cyan','color':'black','border':'2px solid black'});
    }  
  if(frm.doc.docstatus==1 && frm.doc.status=="Pre-Check In"){
                  frm.add_custom_button(__('Check-In'), function(){
@@ -202,7 +159,8 @@ check_out(frm){
 	  return {
 	    query: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_no_fltr',
 	    filters: {
-	         "room_type":frm.doc.room_type
+	         "room_type":frm.doc.room_type,
+	         "property": frm.doc.property
             }
 	}
     });
