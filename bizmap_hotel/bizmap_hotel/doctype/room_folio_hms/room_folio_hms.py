@@ -73,7 +73,7 @@ def description_for_sales_books(name):
 #    return sales_order_child_itm
 
 
-#fetching sales order data from room folio sale_itm_tb including tax
+#fetching sales order data from room folio sale_itm_tb including tax and tranferring to sales invoice
 @frappe.whitelist()
 def sales_order_item_transfer_to_sales_invoice(doc):
     doc = json.loads(doc)
@@ -87,12 +87,15 @@ def sales_order_item_transfer_to_sales_invoice(doc):
        sales_order_ref =[i.sales_order for i in frappe.db.sql(f"""select sales_order from `tabSales Book Item` where parent='{doc.get("name")}' """,as_dict=1)]
        
        defaut_incm_account=frappe.db.get_value("Company",{"name":doc.get("company")},['default_income_account'])
+       room_guest_detaills=frappe.db.sql(f""" select guest, first_name, last_name, mobile, gender  from `tabRoom Guest Detail HMS` where parent = "{doc.get("name")}"  """,as_dict=1)
+
        if sales_order_ref:
           for i in sales_order_ref:
               sales_order_itm=frappe.db.sql(f"""select a.item_code,a.uom,a.description,a.item_name,m.total_qty,a.conversion_factor,a.item_tax_template, m.room_rate_cf,c.quantity,m.name from `tabSales Order` as m inner join `tabSales Order Item` as a inner join `tabRoom Folio HMS` as c on a.parent=m.name  where m.name="{i}" and c.name='{doc.get("name")}' """,as_dict=1)
                  
               sales_tx_charges=frappe.db.sql(f""" select charge_type,account_head,rate from `tabSales Taxes and Charges` where parent ="{i}" """,as_dict=1) # it getting all info of  sale order from above list
-              
+          
+
               for j in  sales_order_itm:
                   sales_invoice_itm= sales_invoice.append('items',{})
                   sales_invoice_itm.item_code = j.item_code
@@ -109,6 +112,17 @@ def sales_order_item_transfer_to_sales_invoice(doc):
                      taxChild.charge_type  = tax.charge_type
                      taxChild.account_head = tax.account_head
                      taxChild.rate =   tax.rate
+       if room_guest_detaills:
+          for gt  in room_guest_detaills:
+              
+              sale_invoice_guest_child = sales_invoice.append('room_guest_details',{})
+              sale_invoice_guest_child.guest=  gt.guest
+              sale_invoice_guest_child.first_name= gt.first_name 
+              sale_invoice_guest_child.last_name= gt.last_name
+              sale_invoice_guest_child.mobile= gt.mobile
+              if doc.get("customer_email"):
+                 sale_invoice_guest_child.email=doc.get("customer_email")
+              sale_invoice_guest_child.gender=gt.gender
           sales_invoice.insert(
                      ignore_permissions=True,
                      ignore_links=True,
