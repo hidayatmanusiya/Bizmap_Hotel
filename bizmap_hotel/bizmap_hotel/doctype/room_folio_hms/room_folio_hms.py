@@ -293,5 +293,12 @@ def room_no_fltr(doctype, txt, searchfield, start, page_len, filters):
     if txt:
        filters.update({"name": ("like", "{0}%".format(txt))})
     return frappe.get_all('Room HMS',filters=filters,fields=['name'],as_list=1)
+#function is filtering room type on basis of property on sales order and room    
+@frappe.whitelist()       
+def room_type_fltr(doctype, txt, searchfield, start, page_len, filters):
+    if txt:
+       filters.update({"property_name": ("like", "{0}%".format(txt))})
+    return frappe.get_all("Property Child table",filters={"property_name":filters.get("property")},fields=["parent"],as_list=1)
+   
        
-    
+           

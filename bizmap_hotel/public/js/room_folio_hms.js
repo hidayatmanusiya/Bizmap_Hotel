@@ -164,6 +164,16 @@ check_out(frm){
             }
 	}
     });
+    
+    frm.set_query("room_type", function() {
+	  return {
+	    query: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_type_fltr',
+	    filters: {
+
+	         "property": frm.doc.property
+            }
+	}
+    });
  }
 
 })

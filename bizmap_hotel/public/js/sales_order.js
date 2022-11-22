@@ -157,7 +157,8 @@ frappe.ui.form.on('Sales Order', {
              },
          callback: function(r) {
                console.log(r)
-              
+             
+
               cur_frm.get_field("items").grid.grid_rows[0].remove();
               cur_frm.refresh();
               var childTable = cur_frm.add_child("items")
@@ -219,5 +220,35 @@ frappe.ui.form.on('Sales Order', {
               }
             }
          })
-     }
+     },
+     
+     setup(frm){
+      frm.set_query("room_no", function() {
+	  return {
+	    query: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_no_fltr',
+	    filters: {
+	         "room_type":frm.doc.room_type_cf,
+	         "property": frm.doc.property
+            }
+	}
+    });
+    
+    frm.set_query("room_type_cf", function() {
+        if(frm.doc.property!=null){
+	  return {
+	    query: 'bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.room_type_fltr',
+	    filters: {
+
+	         "property": frm.doc.property
+            }
+	}
+      }
+     else
+       {
+         frappe.throw("filter is Applyed for Room Type. please Select Property")
+       } 	
+    });
+}
+     
+     
   }) 
