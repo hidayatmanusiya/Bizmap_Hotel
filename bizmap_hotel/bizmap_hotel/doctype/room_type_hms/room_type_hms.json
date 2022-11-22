@@ -15,6 +15,7 @@
   "column_break_4",
   "abbr",
   "service_item",
+  "available_room_",
   "size_and_capacity_section",
   "beds",
   "extra_bed_mattress",
@@ -140,10 +141,15 @@
    "fieldname": "total_room",
    "fieldtype": "Int",
    "label": "Total Room"
+  },
+  {
+   "fieldname": "available_room_",
+   "fieldtype": "Data",
+   "label": "Available Room "
   }
  ],
  "links": [],
- "modified": "2022-09-15 14:37:38.564352",
+ "modified": "2022-11-22 12:14:17.009297",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Type HMS",
