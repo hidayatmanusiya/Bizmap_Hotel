@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series",
+ "creation": "2022-10-19 20:32:42.838333",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "compamy_abbreviation",
+  "section_break_3",
+  "property",
+  "channel_manager_section",
+  "ezee",
+  "column_break_4",
+  "staah",
+  "section_break_5",
+  "hms_setting_table"
+ ],
+ "fields": [
+  {
+   "fieldname": "channel_manager_section",
+   "fieldtype": "Section Break",
+   "label": "Channel Manager "
+  },
+  {
+   "default": "0",
+   "fieldname": "ezee",
+   "fieldtype": "Check",
+   "label": "eZee"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "staah",
+   "fieldtype": "Check",
+   "label": "Staah"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "hms_setting_table",
+   "fieldtype": "Table",
+   "label": "HMS Setting Table",
+   "options": "HMS Setting Table"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "compamy_abbreviation",
+   "fieldtype": "Data",
+   "label": "Compamy Abbreviation"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-11-22 13:33:16.522179",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "HMS Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
