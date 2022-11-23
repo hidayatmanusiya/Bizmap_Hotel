@@ -27,7 +27,7 @@ def insertbooking():
     headers["Content-Type"] = "application/json"
 
     data = {
-        "hotelid": "SP-1011"
+        "hotelid": "SB-101"
     }
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
