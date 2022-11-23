@@ -145,11 +145,11 @@
   {
    "fieldname": "available_room_",
    "fieldtype": "Data",
-   "label": "Available Room "
+   "label": "Available Room"
   }
  ],
  "links": [],
- "modified": "2022-11-22 12:14:17.009297",
+ "modified": "2022-11-23 13:04:45.779640",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Type HMS",
