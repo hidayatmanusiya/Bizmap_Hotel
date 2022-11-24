@@ -37,13 +37,13 @@
    "fieldname": "hms_setting_table",
    "fieldtype": "Table",
    "label": "HMS Setting Table",
-   "options": "HMS Setting Table"
+   "options": "Integration Settings Authorization"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-11-24 15:57:15.402636",
+ "modified": "2022-11-24 18:21:11.822847",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Integration Settings",

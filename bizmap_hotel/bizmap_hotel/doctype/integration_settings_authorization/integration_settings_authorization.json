@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-24 18:21:00.362752",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "hotel_id",
+  "authorization_key",
+  "password"
+ ],
+ "fields": [
+  {
+   "fieldname": "hotel_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Hotel ID"
+  },
+  {
+   "fieldname": "authorization_key",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Authorization Key"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Password"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-11-24 18:21:00.362752",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Integration Settings Authorization",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
