@@ -7,7 +7,6 @@ from requests.structures import CaseInsensitiveDict
 
 @frappe.whitelist(allow_guest=True)
 def insertbooking():
-
 	company = frappe.defaults.get_user_default("Company")
 	abbr = frappe.db.get_value("Company", company, 'abbr')
 
@@ -18,7 +17,7 @@ def insertbooking():
 	headers["Content-Type"] = "application/json"
 
 	data = {
-		"hotelid": "SB-101"
+		"hotelid": "SB-1011"
 	}
 
 	response = requests.post(url, headers=headers, data=json.dumps(data))
@@ -32,44 +31,36 @@ def insertbooking():
 				for price in room['price']:
 					for addon in room['addons']:
 
-						# Sum Child and Adult - No Of Guest
+						# No of guests = children + adults
 						children = room['numberofchildren']
 						adults = room['numberofadults']
 						no_of_guest = sum(int(d) for d in children) + \
 							sum(int(d1) for d1 in adults)
 
-						result_room = [r['id'] for r in response['reservations']]
-						if len(result_room) > 0:
-							room_count = len(result_room)
-
-						# Create customer
+						# Create Customer
 						customer_list = frappe.get_list('Customer', fields=['customer_name'])
 						check = {'customer_name': room['guest_name']}
 						if check not in customer_list:
 							create_customer(room['guest_name'])
 
-						# Create contact
-						contact_list = frappe.get_list(
-							'Contact', fields=['first_name'])
+						# Create Contact
+						contact_list = frappe.get_list('Contact', fields=['first_name'])
 						check = {'first_name': room['guest_name']}
 						if check not in contact_list:
-							create_contact(room['guest_name'], i['customer']
-										   ['email'], i['customer']['telephone'])
+							create_contact(room['guest_name'], i['customer']['email'], i['customer']['telephone'])
 
 						transactionid = i['id']
-						night = addon['nights']
-						qty = no_of_rooms * int(night)
+						nights = addon['nights']
+						qty = no_of_rooms * int(nights)
 
-						# Transaction Id Check
-						sales_order = frappe.get_list(
-							'Sales Order', fields=['transactionid'])
+						# Create Sales Order
+						sales_orders = frappe.get_list('Sales Order', fields=['transactionid'])
 						check = {'transactionid': i['id']}
-
-						if check not in sales_order:
+						if check not in sales_orders:
 							param = {
 										"company": company, "transactionid": transactionid, "guest_name": room['guest_name'],
 										"no_of_guest": no_of_guest, "arrival_date": room['arrival_date'], "no_of_rooms": no_of_rooms,
-										"nights": addon['nights'], "departure_date": room['departure_date'], "mealplan": price['mealplan'],
+										"nights": nights, "departure_date": room['departure_date'], "mealplan": price['mealplan'],
 										"id": room['id'], "totalbeforetax": room['totalbeforetax'], "qty": qty, "abbr": abbr,
 										"totaltax": room['totaltax']
 									}
@@ -77,7 +68,7 @@ def insertbooking():
 							# frappe.msgprint("Data Inserted Successfully")
 
 	else:
-		frappe.msgprint("Request failed!")
+		frappe.msgprint("Invalid Request!")
 
 
 def create_customer(guest_name):
@@ -143,11 +134,10 @@ def create_sales_order(param):
 
 	sales_order_api.append("taxes", {
 		'charge_type': "Actual",
-		'account_head': "TAX 18% - "+param.abbr,
+		'account_head': "TAX 18% - " + param.abbr,
 		'rate': "0.00",
-						'tax_amount': param.totaltax,
-						'description': "TAX 18% - "+param.abbr,
-
+		'tax_amount': param.totaltax,
+		'description': "TAX 18% - " + param.abbr,
 	})
 
 	sales_order_api.save()
