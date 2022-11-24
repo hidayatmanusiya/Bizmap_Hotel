@@ -12,10 +12,10 @@
   "room_type",
   "company",
   "total_room",
+  "available_room_",
   "column_break_4",
   "abbr",
-  "service_item",
-  "available_room_",
+  "meal_plan",
   "size_and_capacity_section",
   "beds",
   "extra_bed_mattress",
@@ -63,13 +63,6 @@
    "fieldname": "abbr",
    "fieldtype": "Read Only",
    "label": "Company Abbreviation",
-   "reqd": 1
-  },
-  {
-   "fieldname": "service_item",
-   "fieldtype": "Link",
-   "label": "Service Item",
-   "options": "Item",
    "reqd": 1
   },
   {
@@ -146,10 +139,17 @@
    "fieldname": "available_room_",
    "fieldtype": "Data",
    "label": "Available Room"
+  },
+  {
+   "fieldname": "meal_plan",
+   "fieldtype": "Table",
+   "label": "Meal Plan",
+   "options": "Service Item",
+   "reqd": 1
   }
  ],
  "links": [],
- "modified": "2022-11-23 13:04:45.779640",
+ "modified": "2022-11-23 17:19:05.508393",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room Type HMS",
