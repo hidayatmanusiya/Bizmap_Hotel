@@ -37,7 +37,7 @@ def update_room():
     headers["Content-Type"] = "application/json"
 
     data = {
-        "hotelid": "SP-1011",
+        "hotelid": "SB-101",
         "room": [{
             "roomid": room_ty_1,
             "date": [{

@@ -30,7 +30,7 @@ def get_columns(filters=None):
             },
             {
             "label":"Mobile",
-            "fieldtype":"Int",
+            "fieldtype":"Data",
             "fieldname":"mobile",
              "width":150
             },
@@ -78,10 +78,10 @@ def prepare_data(filters):
     
     if filters.get("check_in"):
        fltr.update({"check_in":filters.get("check_in")})
-       for i in frappe.db.sql(f""" Select name,customer,room_type,room_no,reservation,check_in,check_out,total_charges from `tabRoom Folio HMS` WHERE check_in BETWEEN '{filters.get("check_in")}'and CURDATE()""",as_dict=1):
+    for i in frappe.db.sql(f""" Select name,customer,room_type,room_no,reservation,check_in,check_out,total_charges,customer_mobile,customer_email from `tabRoom Folio HMS` WHERE check_in BETWEEN '{filters.get("check_in")}'and CURDATE()""",as_dict=1):
         row={}
         row.update(i)
-        row.update({"guest_name":frappe.db.get_value("Sales Order",{"name":i.reservation},"guest_cf"),"customer_name":i.customer,"check_in":i.check_in,"check_out":i.check_out,"room":i.room_no,"room_type":i.room_type,"charges":i.total_charges,})
+        row.update({"guest_name":frappe.db.get_value("Sales Order",{"name":i.reservation},"guest_cf"),"customer_name":i.customer,"mobile":i.customer_mobile,"email":i.customer_email,"check_in":i.check_in,"check_out":i.check_out,"room":i.room_no,"room_type":i.room_type,"charges":i.total_charges,})
         data.append(row)
        
     return data   
