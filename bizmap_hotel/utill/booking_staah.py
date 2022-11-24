@@ -17,7 +17,7 @@ def insertbooking():
 	headers["Content-Type"] = "application/json"
 
 	data = {
-		"hotelid": "SB-1011"
+		"hotelid": "SP-1011"
 	}
 
 	response = requests.post(url, headers=headers, data=json.dumps(data))
@@ -107,37 +107,37 @@ def create_contact(guest_name, email, telephone):
 def create_sales_order(param):
 	sales_order_api = frappe.get_doc({
 			"doctype": "Sales Order",
-			"company": param.company,
-			"customer": param.guest_name,
-			"guest_cf": param.guest_name+"-"+param.guest_name,
+			"company": param["company"],
+			"customer": param["guest_name"],
+			"guest_cf": param["guest_name"]+"-"+param["guest_name"],
 			"booking_type": "Online Booking",
-			"transactionid": param.transactionid,
-			"check_in_cf": param.arrival_date,
-			"no_of_nights_cf": param.nights,
-			"check_out_cf": param.departure_date,
-			"no_of_guest_cf": param.no_of_guest,
-			"room_type_cf": id,
-			"room_package_cf": param.mealplan,
-			"number_of_room": param.no_of_rooms,
-			"room_rate_cf": param.totalbeforetax,
+			"transactionid": param["transactionid"],
+			"check_in_cf": param["arrival_date"],
+			"no_of_nights_cf": param["nights"],
+			"check_out_cf": param["departure_date"],
+			"no_of_guest_cf": param["no_of_guest"],
+			"room_type_cf": param["id"],
+			"room_package_cf": param["mealplan"],
+			"number_of_room": param["no_of_rooms"],
+			"room_rate_cf": param["totalbeforetax"],
 	})
 
 	sales_order_api.append("items", {
-		'item_code': param.mealplan,
-		'item_name': param.mealplan,
-		'qty': param.qty,
-		"reservation_date_from": param.arrival_date,
-		"reservation_date_to": param.departure_date,
-		"rate": param.totalbeforetax,
+		'item_code': param["mealplan"],
+		'item_name': param["mealplan"],
+		'qty': param["qty"],
+		"reservation_date_from": param["arrival_date"],
+		"reservation_date_to": param["departure_date"],
+		"rate": param["totalbeforetax"],
 
 	})
 
 	sales_order_api.append("taxes", {
 		'charge_type': "Actual",
-		'account_head': "TAX 18% - " + param.abbr,
+		'account_head': "TAX 18% - " + param["abbr"],
 		'rate': "0.00",
-		'tax_amount': param.totaltax,
-		'description': "TAX 18% - " + param.abbr,
+		'tax_amount': param["totaltax"],
+		'description': "TAX 18% - " + param["abbr"],
 	})
 
 	sales_order_api.save()
