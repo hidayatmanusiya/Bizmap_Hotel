@@ -10,7 +10,7 @@
   "column_break_2",
   "staah",
   "section_break_4",
-  "hms_setting_table"
+  "authorization_headers"
  ],
  "fields": [
   {
@@ -34,16 +34,16 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "hms_setting_table",
+   "fieldname": "authorization_headers",
    "fieldtype": "Table",
-   "label": "HMS Setting Table",
+   "label": "Integration Settings Authorization",
    "options": "Integration Settings Authorization"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-11-24 18:21:11.822847",
+ "modified": "2022-11-24 18:24:56.286249",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Integration Settings",
