@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-24 15:57:15.402636",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ezee",
+  "column_break_2",
+  "staah",
+  "section_break_4",
+  "hms_setting_table"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "ezee",
+   "fieldtype": "Check",
+   "label": "eZee"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "staah",
+   "fieldtype": "Check",
+   "label": "Staah"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "hms_setting_table",
+   "fieldtype": "Table",
+   "label": "HMS Setting Table",
+   "options": "HMS Setting Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-11-24 15:57:15.402636",
+ "modified_by": "Administrator",
+ "module": "BizMap Hotel",
+ "name": "Integration Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
