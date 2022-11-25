@@ -26,17 +26,15 @@ def insertbooking():
 		for i in response['reservations']:
 			if i['status'] == "new":
 				no_of_rooms = len(i['rooms'])
-
+			guests = 0
 			for room in i['rooms']:
+				children = room['numberofchildren']
+				adults = room['numberofadults']
+				no_of_guest = int(children or 0) + int(adults or 0)
+				guests += no_of_guest
+
 				for price in room['price']:
 					for addon in room['addons']:
-
-						# No of guests = children + adults
-						children = room['numberofchildren']
-						adults = room['numberofadults']
-						no_of_guest = sum(int(d) for d in children) + \
-							sum(int(d1) for d1 in adults)
-
 						# Create Customer
 						customer_list = frappe.get_list('Customer', fields=['customer_name'])
 						check = {'customer_name': room['guest_name']}
@@ -59,7 +57,7 @@ def insertbooking():
 						if check not in sales_orders:
 							param = {
 										"company": company, "transactionid": transactionid, "guest_name": room['guest_name'],
-										"no_of_guest": no_of_guest, "arrival_date": room['arrival_date'], "no_of_rooms": no_of_rooms,
+										"no_of_guest": guests, "arrival_date": room['arrival_date'], "no_of_rooms": no_of_rooms,
 										"nights": nights, "departure_date": room['departure_date'], "mealplan": price['mealplan'],
 										"id": room['id'], "totalbeforetax": room['totalbeforetax'], "qty": qty, "abbr": abbr,
 										"totaltax": room['totaltax']
