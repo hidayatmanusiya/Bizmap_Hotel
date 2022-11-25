@@ -8,26 +8,25 @@ frappe.listview_settings["Sales Order"] = {
 };
 
 function fetch_bookings(listview) {
-	// eZee Booking Fetch Button
-	frappe.db.get_single_value("Integration Settings", "ezee").then((val) => {
-		if (val) {
-			listview.page.add_inner_button("Fetch Booking", function() {
-				frappe.call({
-					method: "bizmap_hotel.utill.booking.insertbooking",
-					args: {},
+	frappe.call({
+		method:"bizmap_hotel.utill.booking_staah.get_last_integration_setting",
+		callback: function(r){
+			if (r.message.ezee){
+				listview.page.add_inner_button("Fetch Booking", function() {
+					frappe.call({
+						method: "bizmap_hotel.utill.booking.insertbooking",
+						args: {},
+					});
 				});
-			});
-		}
-	});
-	// STAHH Booking Fetch Button
-	frappe.db.get_single_value("Integration Settings", "staah").then((val) => {
-		if (val) {
-			listview.page.add_inner_button("STAAH Booking", function() {
-				frappe.call({
-					method: "bizmap_hotel.utill.booking_staah.insertbooking",
-					args: {},
+			}
+			if (r.message.staah){
+				listview.page.add_inner_button("STAAH Booking", function() {
+					frappe.call({
+						method: "bizmap_hotel.utill.booking_staah.insertbooking",
+						args: {},
+					});
 				});
-			});
+			}
 		}
-	});
+	 })
 }
