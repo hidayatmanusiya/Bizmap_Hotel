@@ -1,7 +1,11 @@
 {
  "actions": [],
  "allow_rename": 1,
+<<<<<<< Updated upstream
  "creation": "2022-11-24 15:57:15.402636",
+=======
+ "creation": "2022-11-25 12:32:17.948789",
+>>>>>>> Stashed changes
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -41,9 +45,14 @@
   }
  ],
  "index_web_pages_for_search": 1,
+<<<<<<< Updated upstream
  "issingle": 1,
  "links": [],
  "modified": "2022-11-24 18:24:56.286249",
+=======
+ "links": [],
+ "modified": "2022-11-25 12:32:17.948789",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Integration Settings",
