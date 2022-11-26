@@ -17,7 +17,10 @@ def insertbooking():
 	headers["Content-Type"] = "application/json"
 
 	data = {
-		"hotelid": "SP-1011"
+		# "hotelid": "SP-1011"
+		# "hotelid": "SB-101"
+		"hotelid": "KC"
+
 	}
 
 	response = requests.post(url, headers=headers, data=json.dumps(data))
@@ -32,7 +35,7 @@ def insertbooking():
 				adults = room['numberofadults']
 				no_of_guest = int(children or 0) + int(adults or 0)
 				guests += no_of_guest
-
+			for room in i['rooms']:
 				for price in room['price']:
 					for addon in room['addons']:
 						# Create Customer
@@ -139,4 +142,4 @@ def create_sales_order(param):
 	})
 
 	sales_order_api.save()
-	sales_order_api.submit()
+	# sales_order_api.submit()
