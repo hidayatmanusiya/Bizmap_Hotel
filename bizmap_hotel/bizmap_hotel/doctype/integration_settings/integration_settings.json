@@ -41,9 +41,9 @@
   }
  ],
  "index_web_pages_for_search": 1,
- "issingle": 1,
+ "issingle": 0,
  "links": [],
- "modified": "2022-11-24 18:24:56.286249",
+ "modified": "2022-11-26 12:24:56.286249",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Integration Settings",
