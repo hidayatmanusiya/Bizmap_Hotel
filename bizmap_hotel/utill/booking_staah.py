@@ -142,4 +142,4 @@ def create_sales_order(param):
 	})
 
 	sales_order_api.save()
-	# sales_order_api.submit()
+	sales_order_api.submit()
