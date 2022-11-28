@@ -118,8 +118,8 @@ doc_events = {
 	},
    # "Payment Entry":{
 	#   "before_submit":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_submit"
-	
-	
+
+
 	#},
     "Room Folio HMS":{
       "on_change":"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change"
@@ -131,7 +131,7 @@ doc_events = {
         "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
     },
     "Room HMS":{
-        "validate":"bizmap_hotel.bizmap_hotel.doctype.room_hms.room_hms.validate"
+        "before_insert":"bizmap_hotel.bizmap_hotel.doctype.room_hms.room_hms.validate_no_of_rooms"
     }
  }
 
@@ -144,7 +144,7 @@ scheduler_events = {
 		"bizmap_hotel.utill.room.update_room",
         "bizmap_hotel.utill.booking_staah.insertbooking",
         "bizmap_hotel.utill.room_staah.update_room"
-		
+
 		]
 	}
 }
