@@ -10,11 +10,13 @@
   "room_no",
   "room_type",
   "room_type_name",
+  "bed_type",
   "column_break_3",
   "company",
   "abbr",
   "property",
-  "status"
+  "status",
+  "non_smoking"
  ],
  "fields": [
   {
@@ -73,10 +75,22 @@
    "fieldtype": "Link",
    "label": "Property",
    "options": "Property"
+  },
+  {
+   "default": "0",
+   "fieldname": "non_smoking",
+   "fieldtype": "Check",
+   "label": "Non Smoking"
+  },
+  {
+   "fieldname": "bed_type",
+   "fieldtype": "Link",
+   "label": "Bed Type",
+   "options": "Bed Type"
   }
  ],
  "links": [],
- "modified": "2022-11-07 16:15:32.939360",
+ "modified": "2022-12-08 17:57:30.512508",
  "modified_by": "Administrator",
  "module": "BizMap Hotel",
  "name": "Room HMS",
