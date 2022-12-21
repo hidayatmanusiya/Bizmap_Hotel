@@ -118,7 +118,7 @@ doc_events = {
 	#},
 	"Room Folio HMS": {
 		"on_change": "bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change",
-		"validate": "bizmap_hotel.utill.api.create_ledger"
+		"on_update_after_submit": "bizmap_hotel.utill.api.create_ledger"
 	},
 	"Room Cleaning": {
 		"before_submit": "bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
