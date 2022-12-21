@@ -89,5 +89,27 @@ def get_number_of_available_rooms(from_date, to_date, room_type, room=None, prop
 		return data
 
 
+def create_ledger(doc, method):
+	# create room balance ledger from Sales Order
+	if doc.doctype == "Sales Order":
+		ledger = frappe.get_doc({
+			"doctype": "Room Balance Ledger",
+			"from_date": doc.check_in_cf,
+			"to_date": doc.check_out_cf,
+			"reference": doc.name,
+			"room": doc.get('room_no'),
+			"booking_type": doc.get('booking_type'),
+			"record_type": "IN"
+		})
+		ledger.save()
 
-
+	if doc.doctype == "Room Folio HMS" and doc.status == "Checked Out":
+		ledger = frappe.get_doc({
+			"doctype": "Room Balance Ledger",
+			"from_date": doc.check_in,
+			"to_date": doc.check_out,
+			"folio_reference": doc.name,
+			"room": doc.get('room_no'),
+			"record_type": "OUT"
+		})
+		ledger.save()

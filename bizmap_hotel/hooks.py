@@ -32,20 +32,19 @@ app_license = "MIT"
 
 # include js in doctype views
 doctype_js = {
-
-   #"doctype" : "public/js/doctype.js",
-   "Sales Order":"public/js/sales_order.js",
-   "Room Folio HMS":"public/js/room_folio_hms.js",
-   "Sales Invoice":"public/js/sales_invoice.js",
-   "Payment Entry":"public/js/payment_entry.js",
-   "Sales Invoice":"public/js/sales_invoice.js",
-   "Sign In Sheet HMS":"public/js/sign_in_sheet_hms.js"
+	#"doctype" : "public/js/doctype.js",
+	"Sales Order": "public/js/sales_order.js",
+	"Room Folio HMS": "public/js/room_folio_hms.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"Payment Entry": "public/js/payment_entry.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"Sign In Sheet HMS": "public/js/sign_in_sheet_hms.js"
 
 }
 doctype_list_js = {
-	"Room Folio HMS" : "public/js/room_folio_hms_list.js",
-	"Sales Order" : "public/js/sales_order_list.js",
-    "Room Type HMS" : "public/js/room_type_hms_list.js"
+	"Room Folio HMS": "public/js/room_folio_hms_list.js",
+	"Sales Order": "public/js/sales_order_list.js",
+	"Room Type HMS": "public/js/room_type_hms_list.js"
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -110,40 +109,37 @@ doctype_list_js = {
 # Hook on document methods and events
 
 doc_events = {
- 	"Sales Order": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method",
-               "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sales_order.before_submit"
+	"Sales Order": {
+		"before_submit": "bizmap_hotel.bizmap_hotel.doctype.sales_order.before_submit",
+		"on_submit": "bizmap_hotel.utill.api.create_ledger"
 	},
-   # "Payment Entry":{
+	# "Payment Entry":{
 	#   "before_submit":"bizmap_hotel.bizmap_hotel.doctype.payment_entry.before_submit"
-
-
 	#},
-    "Room Folio HMS":{
-      "on_change":"bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change"
-    },
-    "Room Cleaning":{
-       "before_submit":"bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
-    },
-    "Sign In Sheet HMS":{
-        "before_submit":"bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
-    },
-    "Room HMS":{
-        "before_insert":"bizmap_hotel.bizmap_hotel.doctype.room_hms.room_hms.validate_no_of_rooms"
-    }
- }
+	"Room Folio HMS": {
+		"on_change": "bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change",
+		"validate": "bizmap_hotel.utill.api.create_ledger"
+	},
+	"Room Cleaning": {
+		"before_submit": "bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
+	},
+	"Sign In Sheet HMS": {
+		"before_submit": "bizmap_hotel.bizmap_hotel.doctype.sign_in_sheet_hms.sign_in_sheet_hms.before_submit"
+	},
+	"Room HMS": {
+		"before_insert": "bizmap_hotel.bizmap_hotel.doctype.room_hms.room_hms.validate_no_of_rooms"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 scheduler_events = {
 	"cron": {
 		"* * * * *": [
-		"bizmap_hotel.utill.booking.insertbooking",
-		"bizmap_hotel.utill.room.update_room",
-        "bizmap_hotel.utill.booking_staah.insertbooking",
-        "bizmap_hotel.utill.room_staah.update_room"
+					"bizmap_hotel.utill.booking.insertbooking",
+					"bizmap_hotel.utill.room.update_room",
+					"bizmap_hotel.utill.booking_staah.insertbooking",
+					"bizmap_hotel.utill.room_staah.update_room"
 
 		]
 	}
