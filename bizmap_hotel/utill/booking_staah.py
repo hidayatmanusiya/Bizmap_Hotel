@@ -146,6 +146,7 @@ def create_sales_order(param):
 
 @frappe.whitelist()
 def get_last_integration_setting():
-	doc = frappe.get_last_doc("Integration Settings")
-	data = {"ezee": doc.ezee, "staah": doc.staah}
-	return data
+	docs = frappe.get_all("Integration Settings")
+	if docs:
+		data = frappe.db.get_values("Integration Settings", docs[0], ["ezee", "staah"], as_dict=1)[0]
+		return data
