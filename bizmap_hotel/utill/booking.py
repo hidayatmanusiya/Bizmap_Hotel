@@ -36,7 +36,6 @@ def insertbooking():
         tr = response.json()
         # j = json.loads(json.dumps(tr))
         if 'Reservations' in tr and isinstance(tr['Reservations'], dict):
-            print('****************tr["Reservations"]****************', tr["Reservations"])
             unique_id_list = [{'unique_id': i['UniqueID']}
                 for i in tr['Reservations']['Reservation']]
             for i in tr['Reservations']['Reservation']:
