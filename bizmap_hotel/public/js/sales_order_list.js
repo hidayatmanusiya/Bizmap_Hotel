@@ -1,10 +1,8 @@
 frappe.listview_settings["Sales Order"] = {
 	onload: function(listview) {
+		console.log('onload');
 		fetch_bookings(listview);
-	},
-	refresh: function(listview) {
-		fetch_bookings(listview);
-	},
+	}
 };
 
 function fetch_bookings(listview) {
