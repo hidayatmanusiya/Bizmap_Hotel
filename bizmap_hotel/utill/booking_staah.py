@@ -12,14 +12,14 @@ def insertbooking():
 
 	url = "https://kiviosandbox.staah.net/SUAPI/jservice/Reservation"
 
-	headers = CaseInsensitiveDict()
-	headers["Authorization"] = "Basic bzZVZndCVW86bnN5S05nZ1Y"
-	headers["Content-Type"] = "application/json"
 	integration_settings = frappe.get_last_doc("Integration Settings")
-	hotel_ids = [header.hotel_id for header in integration_settings.authorization_headers]
-	for hotel_id in hotel_ids:
+
+	for auth in integration_settings.authorization_headers:
+		headers = CaseInsensitiveDict()
+		headers["Authorization"] = f"Basic {auth.authorization_key}"
+		headers["Content-Type"] = "application/json"
 		data = {
-			"hotelid": hotel_id
+			"hotelid": auth.hotel_id
 		}
 
 		response = requests.post(url, headers=headers, data=json.dumps(data))
