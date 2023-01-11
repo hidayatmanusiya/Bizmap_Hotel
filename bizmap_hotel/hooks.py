@@ -118,7 +118,8 @@ doc_events = {
 	#},
 	"Room Folio HMS": {
 		"on_change": "bizmap_hotel.bizmap_hotel.doctype.room_folio_hms.room_folio_hms.on_change",
-		"on_update_after_submit": "bizmap_hotel.utill.api.create_ledger"
+		"on_update_after_submit": "bizmap_hotel.utill.api.create_ledger",
+		"before_update_after_submit": "bizmap_hotel.utill.utils.shift_room_or_upgrade_booking"
 	},
 	"Room Cleaning": {
 		"before_submit": "bizmap_hotel.bizmap_hotel.doctype.room_cleaning.room_cleaning.before_submit"
